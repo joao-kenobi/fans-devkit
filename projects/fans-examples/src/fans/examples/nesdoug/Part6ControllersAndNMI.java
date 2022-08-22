@@ -12,6 +12,26 @@ import fans.core.interfaces.IJoypadReader;
 
 public class Part6ControllersAndNMI extends Ca65Base {
 	
+	protected void before() {
+		segment("ZEROPAGE", () -> {			
+			rawAsm("in_nmi: .res 2");
+			rawAsm("temp1: .res 2");
+			rawAsm("pad1: .res 2");
+			rawAsm("pad1_new: .res 2");
+			rawAsm("pad2: .res 2");
+			rawAsm("pad2_new: .res 2");
+		});
+		
+		segment("BSS", () -> {			
+			rawAsm("palette_buffer: .res 512");
+			rawAsm("palette_buffer_end:");
+
+			rawAsm("oam_lo_buffer: .res 512 ;low table ");
+			rawAsm("oam_hi_buffer: .res 32 ;high table ");
+			rawAsm("oam_buffer_end:");
+		});
+	}
+	
 	protected void init() {
 		blockMove(288, "BG_Palette", "palette_buffer"); // COPY PALETTES to PAL_BUFFER
 		

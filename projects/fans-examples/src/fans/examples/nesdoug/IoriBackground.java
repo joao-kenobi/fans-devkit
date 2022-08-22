@@ -7,7 +7,7 @@ import fans.core.constants.TmOrTsConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
 
-public class TesteBackgroundsCelso extends Ca65Base {
+public class IoriBackground extends Ca65Base {
 	
 	protected void before() {
 		
@@ -22,10 +22,10 @@ public class TesteBackgroundsCelso extends Ca65Base {
 		dmaFromTilesToVRAM();
 		dmaFromTilemapToVRAM();
 		
-		ldaSta(BgModeConstants.MODE1, BusRegisters.BGMODE);
-		stz(BusRegisters.BG12NBA);
+		setBGMode(BgModeConstants.MODE1);
+		setBG1And2CharacterAddress("#$00");
 		setBG1TilemapAddress("#$60");
-		ldaSta(TmOrTsConstants.BG1_ON, BusRegisters.TM);
+		ldaSta(TmOrTsConstants.BG1_ON, BusRegisters.TM); // $01 = only bg 1 is active
 		
 		initScreen();
 		foreverLoop();
@@ -34,6 +34,7 @@ public class TesteBackgroundsCelso extends Ca65Base {
 
 	private void importGraphics() {
 		segment("RODATA1");
+		
 		String gfxPath = "includes/graphics/teste";
 		
 		label("BG_Palette", () -> {
@@ -41,27 +42,22 @@ public class TesteBackgroundsCelso extends Ca65Base {
 			incbin(gfxPath+"/snes.palette");
 		});
 		
-		//segment("RODATA2");
-		label("Tilemap", () -> {
-			incbin(gfxPath+"/snes.map");
-		});
-		
-		//segment("RODATA3");
 		label("Tiles", () -> {
+			// 4bpp tileset
 			incbin(gfxPath+"/snes.tiles");
 		}, "End_Tiles");
 		
-		
-		
+		label("Tilemap", () -> {
+			// $700 bytes
+			incbin(gfxPath+"/snes.map");
+		});
 	}
 	
 	private void dmaFromPalleteToCGRAM() {
 		stz(BusRegisters.CGADD);
 		
 		String source = "BG_Palette";
-		//int length = 200;
-		//String length = "#$20";
-		String length = "#32";
+		String length = "#256";
 		String transferMode = DmaPxConstants.TRANSFER_MODE_0;
 		int channel = 0;
 		
@@ -83,8 +79,7 @@ public class TesteBackgroundsCelso extends Ca65Base {
 		ldxStx("#$6000", BusRegisters.VMADDL); // set an address in the vram of $0000
 		
 		String source = "Tilemap";
-		String length = "#512";
-		//String length = "#(End_Tilemap-Tilemap)";
+		String length = "#2048";
 		String transferMode = DmaPxConstants.TRANSFER_MODE_1;
 		int channel = 0;
 		
@@ -92,6 +87,6 @@ public class TesteBackgroundsCelso extends Ca65Base {
 	}
 
 	public static void main(String[] args) {
-		new TesteBackgroundsCelso().buildAsmFile();
+		new IoriBackground().buildAsmFile();
 	}
 }

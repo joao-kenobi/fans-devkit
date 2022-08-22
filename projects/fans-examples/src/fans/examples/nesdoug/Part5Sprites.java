@@ -9,14 +9,27 @@ import fans.core.enums.BusRegisters;
 
 public class Part5Sprites extends Ca65Base {
 	
+	protected void before() {
+		segment("ZEROPAGE", () -> {			
+			rawAsm("in_nmi: .res 2");
+		});
+		
+		segment("BSS", () -> {			
+			rawAsm("palette_buffer: .res 512");
+			rawAsm("palette_buffer_end:");
+
+			rawAsm("oam_lo_buffer: .res 512 ;low table ");
+			rawAsm("oam_hi_buffer: .res 32 ;high table ");
+			rawAsm("oam_buffer_end:");
+		});
+	}
+	
 	protected void init() {
-		blockMove(288, "BG_Palette", "PAL_BUFFER"); // COPY PALETTES to PAL_BUFFER
+		blockMove(288, "BG_Palette", "palette_buffer");
 		
-		//a8Bit();
-		dmaToCgram("PAL_BUFFER", 288, DmaPxConstants.TRANSFER_MODE_0, 0); // DMA from PAL_BUFFER to CGRAM
-		//jsr("DMA_Palette"); // in init.asm
+		dmaToCgram("palette_buffer", 288, DmaPxConstants.TRANSFER_MODE_0, 0);
 		
-		blockMove(12, "Sprites", "oam_lo_buffer"); // COPY sprites to sprite buffer
+		blockMove(12, "Sprites", "oam_lo_buffer");
 		a8Bit(); // block move will put AXY16. Undo that.
 		
 		
@@ -27,9 +40,11 @@ public class Part5Sprites extends Ca65Base {
 		ldaSta("#$6A", "oam_hi_buffer");
 		
 		// DMA from oam_lo_buffer to the OAM RAM
-//		stz(BusRegisters.OAMADDL);
-//		dma("oam_lo_buffer", "#$"+lowByte(BusRegisters.OAMDATA), 544, 0, 0);
+		//stz(BusRegisters.OAMADDL);
+		//dma("oam_lo_buffer", "#$"+lowByte(BusRegisters.OAMDATA), 544, DmaPxConstants.TRANSFER_MODE_0, 0);
+		
 		jsr("DMA_OAM"); // in init.asm
+		//dmaToOam("oam_lo_buffer", 544, DmaPxConstants.TRANSFER_MODE_0, 0);
 		
 		
 		// DMA from Spr_Tiles to VRAM
@@ -39,7 +54,7 @@ public class Part5Sprites extends Ca65Base {
 		dmaToVram("Spr_Tiles", "#(End_Spr_Tiles-Spr_Tiles)", DmaPxConstants.TRANSFER_MODE_1, 0);
 		
 		ldaSta("#$02", BusRegisters.OBSEL);
-		ldaSta(BgModeConstants.MODE1, BusRegisters.BGMODE);
+		setBGMode(BgModeConstants.MODE1);
 		ldaSta(TmOrTsConstants.SPRITES_ON, BusRegisters.TM);
 		
 		initScreen();

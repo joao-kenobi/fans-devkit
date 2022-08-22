@@ -6,6 +6,10 @@ import fans.core.enums.BusRegisters;
 
 public class Part2DMAPalette extends Ca65Base {
 	
+	protected void before() {
+		
+	}
+	
 	public void init() {		
 		a8Bit();
 		stz(BusRegisters.CGADD);

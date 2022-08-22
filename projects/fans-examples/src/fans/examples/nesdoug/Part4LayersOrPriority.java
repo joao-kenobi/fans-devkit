@@ -9,6 +9,21 @@ import fans.core.enums.BusRegisters;
 
 public class Part4LayersOrPriority extends Ca65Base {
 
+	protected void before() {
+		segment("ZEROPAGE", () -> {			
+			rawAsm("in_nmi: .res 2");
+		});
+		
+		segment("BSS", () -> {			
+			rawAsm("palette_buffer: .res 512");
+			rawAsm("palette_buffer_end:");
+
+			rawAsm("oam_lo_buffer: .res 512 ;low table ");
+			rawAsm("oam_hi_buffer: .res 32 ;high table ");
+			rawAsm("oam_buffer_end:");
+		});
+	}
+	
 	public void init() {
 		a8Bit();
 		
