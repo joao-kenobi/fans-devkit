@@ -9,27 +9,12 @@ import fans.core.enums.BusRegisters;
 
 public class Part5Sprites extends Ca65Base {
 	
-	protected void before() {
-		segment("ZEROPAGE", () -> {			
-			rawAsm("in_nmi: .res 2");
-		});
-		
-		segment("BSS", () -> {			
-			rawAsm("palette_buffer: .res 512");
-			rawAsm("palette_buffer_end:");
-
-			rawAsm("oam_lo_buffer: .res 512 ;low table ");
-			rawAsm("oam_hi_buffer: .res 32 ;high table ");
-			rawAsm("oam_buffer_end:");
-		});
-	}
-	
 	protected void init() {
-		blockMove(288, "BG_Palette", "palette_buffer");
+		blockMove("BG_Palette", "palette_buffer", "#(palette_buffer_end-palette_buffer)");
 		
-		dmaToCgram("palette_buffer", 288, DmaPxConstants.TRANSFER_MODE_0, 0);
+		dmaToCgram("palette_buffer", "#(palette_buffer_end-palette_buffer)", DmaPxConstants.TRANSFER_MODE_0, 0);
 		
-		blockMove(12, "Sprites", "oam_lo_buffer");
+		blockMove("Sprites", "oam_lo_buffer", "#(End_Sprites-Sprites)");
 		a8Bit(); // block move will put AXY16. Undo that.
 		
 		
@@ -97,7 +82,7 @@ public class Part5Sprites extends Ca65Base {
 			rawAsm(".byte $80, $80, $00, SPR_PRIOR_2");	
 			rawAsm(".byte $80, $90, $20, SPR_PRIOR_2");	
 			rawAsm(".byte $7c, $90, $22, SPR_PRIOR_2");	
-		});
+		}, "End_Sprites");
 		
 		segment("RODATA1");
 		

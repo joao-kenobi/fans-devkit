@@ -78,7 +78,7 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 	}
 	
 	protected void init() {
-		blockMove(512, "BG_Palette", "palette_buffer");
+		blockMove("BG_Palette", "palette_buffer", 512);
 		a8Bit();
 		
 		dmaToCgram("palette_buffer", "#(palette_buffer_end - palette_buffer)", DmaPxConstants.TRANSFER_MODE_0, 0);

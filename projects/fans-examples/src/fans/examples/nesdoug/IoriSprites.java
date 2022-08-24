@@ -14,13 +14,13 @@ public class IoriSprites extends Ca65Base {
 	}
 	
 	protected void init() {
-		blockMove(32, "palette", "palette_buffer"); // COPY PALETTES to palette_buffer
+		blockMove("palette", "palette_buffer", 32); // COPY PALETTES to palette_buffer
 		
 		//a8Bit();
 		dmaToCgram("palette_buffer", 32, DmaPxConstants.TRANSFER_MODE_0, 0); // DMA from palette_buffer to CGRAM
 		//jsr("DMA_Palette"); // in init.asm
 		
-		blockMove(422, "sprites", "oam_lo_buffer"); // COPY sprites to sprite buffer
+		blockMove("sprites", "oam_lo_buffer", 422); // COPY sprites to sprite buffer
 		a8Bit(); // block move will put AXY16. Undo that.
 		
 		

@@ -14,32 +14,22 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	
 	protected void before() {
 		segment("ZEROPAGE", () -> {			
-			rawAsm("in_nmi: .res 2");
 			rawAsm("temp1: .res 2");
 			rawAsm("pad1: .res 2");
 			rawAsm("pad1_new: .res 2");
 			rawAsm("pad2: .res 2");
 			rawAsm("pad2_new: .res 2");
 		});
-		
-		segment("BSS", () -> {			
-			rawAsm("palette_buffer: .res 512");
-			rawAsm("palette_buffer_end:");
-
-			rawAsm("oam_lo_buffer: .res 512 ;low table ");
-			rawAsm("oam_hi_buffer: .res 32 ;high table ");
-			rawAsm("oam_buffer_end:");
-		});
 	}
 	
 	protected void init() {
-		blockMove(288, "BG_Palette", "palette_buffer"); // COPY PALETTES to PAL_BUFFER
+		blockMove("bg_Palette", "palette_buffer"); // COPY PALETTES to PAL_BUFFER
 		
 		//a8Bit();
-		dmaToCgram("palette_buffer", "#(palette_buffer_end - palette_buffer)", DmaPxConstants.TRANSFER_MODE_0, 0); // DMA from PAL_BUFFER to CGRAM
+		dmaToCgram("palette_buffer", DmaPxConstants.TRANSFER_MODE_0, 0); // DMA from PAL_BUFFER to CGRAM
 		//jsr("DMA_Palette"); // in init.asm
 		
-		blockMove(12, "Sprites", "oam_lo_buffer"); // COPY sprites to sprite buffer
+		blockMove("sprites", "oam_lo_buffer"); // COPY sprites to sprite buffer
 		a8Bit(); // block move will put AXY16. Undo that.
 		
 		
@@ -57,7 +47,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 		ldaSta(VMainConstants.INCREMENT_MODE_BY_1, BusRegisters.VMAIN);
 		
 		ldxStx("#$4000", BusRegisters.VMADDL);
-		dmaToVram("Spr_Tiles", "#(End_Spr_Tiles-Spr_Tiles)", DmaPxConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("sprite_tiles", DmaPxConstants.TRANSFER_MODE_1, 0);
 		// ======================================================================================
 		
 		ldaSta("#$02", BusRegisters.OBSEL);
@@ -73,20 +63,20 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	}
 
 	private void infiniteLoop() {
-		label("Infinite_Loop", () -> {
+		label("infinite_loop", () -> {
 			a8Bit();
 			xy16Bit();
-			jsr("Wait_NMI");
+			jsr("wait_nmi");
 			
 			// we are now in v-blank	
 			dmaToOam("oam_lo_buffer", 544, DmaPxConstants.TRANSFER_MODE_0, 0);
 			//jsr("DMA_OAM"); // in init.asm
-			jsr("Pad_Poll");
+			jsr("pad_poll");
 			axy16Bit();
 			
 			readJoypad1();
 			
-			jmp("Infinite_Loop");
+			jmp("infinite_loop");
 		});
 	}
 
@@ -163,7 +153,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	}
 	
 	private void padPoll() {
-		label("Pad_Poll", () -> {			
+		label("pad_poll", () -> {			
 			rawAsm(".a8");
 			rawAsm(".i16");
 			// reads both controllers to pad1, pad1_new, pad2, pad2_new
@@ -209,23 +199,23 @@ public class Part6ControllersAndNMI extends Ca65Base {
 		
 		String gfxPath = "includes/graphics/nesdoug/part6";
 		
-		label("Sprites", () -> {
+		label("sprites", () -> {
 			// 4 bytes per sprite = x, y, tile #, attribute
 			rawAsm(".byte $80, $80, $00, SPR_PRIOR_2");	
 			rawAsm(".byte $80, $90, $20, SPR_PRIOR_2");	
 			rawAsm(".byte $7c, $90, $22, SPR_PRIOR_2");	
-		});
+		}, "sprites_end");
 		
 		segment("RODATA1");
 		
-		label("BG_Palette", () -> {
+		label("bg_palette", () -> {
 			incbin(gfxPath+"/default.pal"); // 256 bytes
 			incbin(gfxPath+"/sprite.pal"); // is 32 bytes, 256+32=288	
-		});
+		}, "bg_Palette_end");
 		
-		label("Spr_Tiles", () -> {
+		label("sprite_tiles", () -> {
 			incbin(gfxPath+"/sprite.chr");
-		}, "End_Spr_Tiles");
+		}, "sprite_tiles_end");
 	}
 	
 	public static void main(String[] args) {
