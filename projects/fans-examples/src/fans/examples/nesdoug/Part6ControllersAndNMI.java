@@ -3,7 +3,6 @@ package fans.examples.nesdoug;
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
 import fans.core.constants.DmaPxConstants;
-import fans.core.constants.NmiTIMenConstants;
 import fans.core.constants.TmOrTsConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
@@ -23,11 +22,10 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	}
 	
 	protected void init() {
-		blockMove("bg_Palette", "palette_buffer"); // COPY PALETTES to PAL_BUFFER
+		blockMove("bg_palette", "palette_buffer"); // COPY PALETTES to PAL_BUFFER
 		
 		//a8Bit();
 		dmaToCgram("palette_buffer", DmaPxConstants.TRANSFER_MODE_0, 0); // DMA from PAL_BUFFER to CGRAM
-		//jsr("DMA_Palette"); // in init.asm
 		
 		blockMove("sprites", "oam_lo_buffer"); // COPY sprites to sprite buffer
 		a8Bit(); // block move will put AXY16. Undo that.
@@ -43,7 +41,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 		stz(BusRegisters.OAMADDL);
 		dmaToOam("oam_lo_buffer", "#(oam_buffer_end - oam_lo_buffer)", DmaPxConstants.TRANSFER_MODE_0, 0);
 		
-		// === DMA from Spr_Tiles to VRAM ========================================================
+		// === DMA from sprite_tiles to VRAM ========================================================
 		ldaSta(VMainConstants.INCREMENT_MODE_BY_1, BusRegisters.VMAIN);
 		
 		ldxStx("#$4000", BusRegisters.VMADDL);
@@ -53,7 +51,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 		ldaSta("#$02", BusRegisters.OBSEL);
 		setBGMode(BgModeConstants.MODE1);
 		ldaSta(TmOrTsConstants.SPRITES_ON, BusRegisters.TM);
-		ldaSta(NmiTIMenConstants.ENABLE_NMI_AND_AUTO_JOYPAD_READ, CpuRegisters.NMITIMEN);
+		enableNmiAndAutoJoypadRead();
 		
 		initScreen();
 		infiniteLoop();
@@ -134,7 +132,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	}
 	
 	private void waitNMI() {
-		label("Wait_NMI", () -> {
+		label("wait_nmi", () -> {
 			rawAsm(".a8");
 			rawAsm(".i16");
 			lda("in_nmi");
@@ -211,7 +209,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 		label("bg_palette", () -> {
 			incbin(gfxPath+"/default.pal"); // 256 bytes
 			incbin(gfxPath+"/sprite.pal"); // is 32 bytes, 256+32=288	
-		}, "bg_Palette_end");
+		}, "bg_palette_end");
 		
 		label("sprite_tiles", () -> {
 			incbin(gfxPath+"/sprite.chr");

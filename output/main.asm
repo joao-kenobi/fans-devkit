@@ -35,10 +35,10 @@ rep #$30
 .elseif .isize = 8
 rep #$30
 .endif
-lda #287
-ldx #.loword(BG_Palette)
+lda #(bg_palette_end-bg_palette)
+ldx #.loword(bg_palette)
 ldy #.loword(palette_buffer)
-.byte $54, ^palette_buffer, ^BG_Palette
+.byte $54, ^palette_buffer, ^bg_palette
 plb
 
 ; === DMA START  === 
@@ -53,7 +53,7 @@ stx $4302 ;A1T0L
 lda #^palette_buffer
 sta $4304 ;A1B0
 
-ldx #(palette_buffer_end - palette_buffer)
+ldx #(palette_buffer_end-palette_buffer)
 stx $4305 ;DAS0L
 
 lda #$01
@@ -66,10 +66,10 @@ rep #$30
 .elseif .isize = 8
 rep #$30
 .endif
-lda #11
-ldx #.loword(Sprites)
+lda #(sprites_end-sprites)
+ldx #.loword(sprites)
 ldy #.loword(oam_lo_buffer)
-.byte $54, ^oam_lo_buffer, ^Sprites
+.byte $54, ^oam_lo_buffer, ^sprites
 plb
 sep #$20 ; A 8 BIT MODE
 
@@ -111,13 +111,13 @@ sta $4300 ;DMAP0
 lda #$18
 sta $4301 ;BBAD0
 
-ldx #.loword(Spr_Tiles)
+ldx #.loword(sprite_tiles)
 stx $4302 ;A1T0L
 
-lda #^Spr_Tiles
+lda #^sprite_tiles
 sta $4304 ;A1B0
 
-ldx #(End_Spr_Tiles-Spr_Tiles)
+ldx #(sprite_tiles_end-sprite_tiles)
 stx $4305 ;DAS0L
 
 lda #$01
@@ -140,10 +140,10 @@ sta $4200 ;NMITIMEN
 lda #$0f
 sta $2100 ;INIDISP
 
-Infinite_Loop:
+infinite_loop:
 sep #$20 ; A 8 BIT MODE
 rep #$10 ; X,Y 16 BIT MODE
-jsr Wait_NMI
+jsr wait_nmi
 
 ; === DMA START  === 
 stz $4300 ;DMAP0
@@ -164,7 +164,7 @@ lda #$01
 sta $420B ;MDMAEN
 ; === DMA END  === 
 
-jsr Pad_Poll
+jsr pad_poll
 rep #$30 ; A,X,Y 16 BIT MODE
 lda pad1
 and #$0200
@@ -215,9 +215,9 @@ rep #$20  ; A 16 BIT MODE
 
 @not_down:
 sep #$20 ; A 8 BIT MODE
-jmp Infinite_Loop
+jmp infinite_loop
 
-Wait_NMI:
+wait_nmi:
 .a8
 .i16
 lda in_nmi
@@ -228,7 +228,7 @@ cmp in_nmi
 beq @check_again
 rts
 
-Pad_Poll:
+pad_poll:
 .a8
 .i16
 php
@@ -261,20 +261,22 @@ plp
 rts
 SPR_PRIOR_2 = $20
 
-Sprites:
+sprites:
 .byte $80, $80, $00, SPR_PRIOR_2
 .byte $80, $90, $20, SPR_PRIOR_2
 .byte $7c, $90, $22, SPR_PRIOR_2
+
+sprites_end:
 .segment "RODATA1"
 
-BG_Palette:
+bg_palette:
 .incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part6/default.pal"
 .incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part6/sprite.pal"
 
-End_BG_Palette:
+bg_palette_end:
 
-Spr_Tiles:
+sprite_tiles:
 .incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part6/sprite.chr"
 
-End_Spr_Tiles:
+sprite_tiles_end:
 .include "../framework/asm/includes/ca65/header.asm"
