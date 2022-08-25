@@ -119,124 +119,283 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 		
 		ldaSta("#$10", "paddle1_x");
 		ldaSta("#$e8", "paddle2_x");
-		
 		ldaSta("#$70", "paddle1_y", "paddle2_y");
 		
-		label("Infinite_Loop", () -> {
+		infiniteLoop();
+	}
+
+	private void infiniteLoop() {
+		label("infinite_loop", () -> {
 			a8Bit();
 			xy16Bit();
-			jsr("Wait_NMI");
+			jsr("wait_nmi");
 			jsr("DMA_OAM");
 			jsr("Print_Score");
-			jsr("Pad_Poll");
-			jsr("Clear_OAM");
+			jsr("pad_poll");
+			clearOam();
 			
 			inc("frame_count");
 			axy16Bit();
 			readJoypad1();
 			
-			label("@ok", () -> {
-				lda("points_R");
-				cmp("#9");
-				bcc("@ok2");
-				jsr("Reset_Score");
-			});
-			
-			label("@ok2", () -> {
-				a8Bit();
-				ldaSta("#1", "ball_active");
-				
-				ldaSta("#$74", "ball_x", "ball_y");
-				lda("frame_count");
-				and("#1");
-				bne("@sp_x");
-				lda("#$ff"); // -1
-			});
-			
+			ok();
+			ok2();
 			label("@sp_y", () -> {
 				sta("ball_y_speed");
 			});
 			
-			label("@skip_start", () -> {
-				// move ball
-				a8Bit();
-				lda("ball_active");
-				bne("@ball_active");
-				jmp("ball_not_active");
+			skipStart();
+			ballActive();
+			above20();
+			ballDone();
+			noCollision();
+			pastCollisions();
+			above4();
+			label("belowfc");
+			ballNotActive();
+			drawSprites();
+			
+			label("skip_ball", () -> {
+				plp();
+				rts();
 			});
 			
-			label("@ball_active", () -> {
-				String[] ballVariables = {"ball_x", "ball_y"};
-				
-				for (String variable : ballVariables) {
-					lda(variable);
-					clc();
-					adc(variable+"_speed");
-					sta(variable);					
-				}
-				
-				// bounce off ceilings	
-				cmp("#$20");
-				bcs("@above20");
-				ldaSta("#$20", "ball_y");
-				ldaSta("#1", "ball_y_speed");
-				jmp("@ball_done");
-			});
+			printScore();
 			
-			label("@above20", () -> {
-				// bounce off floor
-				ldaCmp("ball_y", "#$c7");
-				bcc("@ball_done");
-				ldaSta("#$c7", "ball_y");
-				ldaSta("#$ff", "ball_y_speed");  // -1
-			});
-			
-			
-			label("@ball_done", () -> {
-				// check collision left
-				a8Bit();
-				ldaSta("paddle1_x", "obj1x");
-				ldaSta("#PADDLE_W", "obj1w");
-				ldaSta("paddle1_y", "obj1y");
-				ldaSta("#PADDLE_H", "obj1h");
-				ldaSta("ball_x", "obj2x");
-				ldaSta("#BALL_SIZE", "obj2w");
-				ldaSta("ball_y", "obj2y");
-				ldaSta("#BALL_SIZE", "obj2h");
-				jsr("Check_Collision");
-				a8Bit();
-				ldaBeq("collision", "@no_collision"); // 1 or 0
-
-				// is left paddle more left than ball?
-				ldaCmp("paddle1_x", "ball_x");
-				bcs("@no_collision");
-				// make ball go right	
-				ldaSta("#1", "ball_x_speed");
-			});
-			
-			label("@no_collision", () -> {
-				// check collision right
-				a8Bit();
-				ldaSta("paddle2_x", "obj1x");
-				ldaSta("#PADDLE_W", "obj1w");
-				ldaSta("paddle2_y", "obj1y");
-				ldaSta("#PADDLE_H", "obj1h");
-			    // skip ball, still loaded
-
-				jsr("Check_Collision");
-				a8Bit();
-				ldaBeq("collision", "@past_collisions"); // 1 or 0
-				// is left paddle more right than ball?
-				ldaCmp("paddle2_x", "ball_x");
-				beq("@past_collisions");
-				bcc("@past_collisions");
-				// make ball go left	
-				ldaSta("#$ff", "ball_x_speed"); // -1
-				
-			});
 		});
-		
 	}
+
+	private void printScore() {
+		label("print_score", () -> {
+			php();
+			// we should be in v-blank
+			a8Bit();
+			ldaSta(VMainConstants.INCREMENT_MODE_BY_32, BusRegisters.VMAIN); // downward increment
+			
+			//print left score
+			a16Bit();
+			xy8Bit();
+			ldx("#12");
+			ldy("#1");
+			jsr("map_offset"); // returns a16 = vram address offset
+			clc();
+			adcSta("#$7000", BusRegisters.VMADDL); // layer 3 map
+			a8Bit();
+			lda("points_L");
+			clc();
+			adc("#$10");
+			a16Bit();
+			andSta("#$00ff", BusRegisters.VMDATAL); // blank the upper byte, = palette 0
+			clc();
+			adcSta("#$0010", BusRegisters.VMDATAL);
+				
+//			;print right score
+//				A16
+//				XY8
+//				ldx #19
+//				ldy #1
+//				jsr Map_Offset ; returns a16 = vram address offset
+//				clc
+//				adc #$7000 ;layer 3 map
+//				sta VMADDL ;$2116
+//				A8
+//				lda points_R
+//				clc
+//				adc #$10
+//				A16
+//				and #$00ff ;blank the upper byte, = palette 0
+//				sta VMDATAL
+//				clc
+//				adc #$0010
+//				sta VMDATAL
+//				
+//				plp
+//				rts
+		});
+	}
+
+	private void ok() {
+		label("@ok", () -> {
+			lda("points_R");
+			cmp("#9");
+			bcc("@ok2");
+			jsr("Reset_Score");
+		});
+	}
+
+	private void ok2() {
+		label("@ok2", () -> {
+			a8Bit();
+			ldaSta("#1", "ball_active");
+			
+			ldaSta("#$74", "ball_x", "ball_y");
+			lda("frame_count");
+			and("#1");
+			bne("@sp_x");
+			lda("#$ff"); // -1
+		});
+	}
+
+	private void skipStart() {
+		label("@skip_start", () -> {
+			// move ball
+			a8Bit();
+			lda("ball_active");
+			bne("@ball_active");
+			jmp("ball_not_active");
+		});
+	}
+
+	private void ballActive() {
+		label("@ball_active", () -> {
+			String[] ballVariables = {"ball_x", "ball_y"};
+			
+			for (String variable : ballVariables) {
+				lda(variable);
+				clc();
+				adc(variable+"_speed");
+				sta(variable);					
+			}
+			
+			// bounce off ceilings	
+			cmp("#$20");
+			bcs("@above20");
+			ldaSta("#$20", "ball_y");
+			ldaSta("#1", "ball_y_speed");
+			jmp("@ball_done");
+		});
+	}
+
+	private void above20() {
+		label("@above20", () -> {
+			// bounce off floor
+			ldaCmp("ball_y", "#$c7");
+			bcc("@ball_done");
+			ldaSta("#$c7", "ball_y");
+			ldaSta("#$ff", "ball_y_speed");  // -1
+		});
+	}
+
+	private void ballDone() {
+		label("@ball_done", () -> {
+			// check collision left
+			a8Bit();
+			ldaSta("paddle1_x", "obj1x");
+			ldaSta("#PADDLE_W", "obj1w");
+			ldaSta("paddle1_y", "obj1y");
+			ldaSta("#PADDLE_H", "obj1h");
+			ldaSta("ball_x", "obj2x");
+			ldaSta("#BALL_SIZE", "obj2w");
+			ldaSta("ball_y", "obj2y");
+			ldaSta("#BALL_SIZE", "obj2h");
+			jsr("Check_Collision");
+			a8Bit();
+			ldaBeq("collision", "@no_collision"); // 1 or 0
+
+			// is left paddle more left than ball?
+			ldaCmp("paddle1_x", "ball_x");
+			bcs("@no_collision");
+			// make ball go right	
+			ldaSta("#1", "ball_x_speed");
+		});
+	}
+
+	private void noCollision() {
+		label("@no_collision", () -> {
+			// check collision right
+			a8Bit();
+			ldaSta("paddle2_x", "obj1x");
+			ldaSta("#PADDLE_W", "obj1w");
+			ldaSta("paddle2_y", "obj1y");
+			ldaSta("#PADDLE_H", "obj1h");
+		    // skip ball, still loaded
+
+			jsr("Check_Collision");
+			a8Bit();
+			ldaBeq("collision", "@past_collisions"); // 1 or 0
+			// is left paddle more right than ball?
+			ldaCmp("paddle2_x", "ball_x");
+			beq("@past_collisions");
+			bcc("@past_collisions");
+			// make ball go left	
+			ldaSta("#$ff", "ball_x_speed"); // -1
+			
+		});
+	}
+
+	private void pastCollisions() {
+		label("@past_collisions", () -> {
+			// check lose left
+			a8Bit();
+			ldaCmp("ball_x", "#$4");
+			bcs("@above4");
+			inc("points_R");
+			stz("ball_active");
+		});
+	}
+
+	private void above4() {
+		label("@above4", () -> {
+			// check lose right
+			ldaCmp("ball_x", "#$fb");
+			bcc("@belowfc");
+			inc("points_L");
+			stz("ball_active");
+		});
+	}
+
+	private void ballNotActive() {
+		label("@ball_not_active", () -> {
+			stz(new String[] {"points_L", "points_R"});
+			rts();
+		});
+	}
+
+	private void drawSprites() {
+		label("@draw_sprites", () -> {
+			php();
+
+			//left paddle and right paddle
+			for (int i = 0; i < 2; i++) {
+				int paddleIndex = i+1;
+
+				a8Bit();
+
+				if (i == 0) {						
+					stz("sprid");
+				}
+
+				stz("spr_x+1"); // 9th bit of X
+				ldaSta("paddle"+paddleIndex+"_x", "spr_x");
+				ldaSta("paddle"+paddleIndex+"_y", "spr_y");
+				a16Bit();
+				lda("#.loword(meta_0"+i+")");
+				ldx("#^meta_00");
+				jsr("oam_meta_sprite");					
+			}
+
+			a8Bit();
+			ldaBeq("ball_active", "@skip_ball");
+
+			/*
+			ball
+
+			 spr_x - x (9 bit)
+			 spr_y - y
+			 spr_c - tile #
+			 spr_a - attributes, flip, palette, priority
+			 spr_sz = sprite size, 0 or 2
+			 */
+			ldaSta("ball_x", "spr_x");
+			ldaSta("ball_y", "spr_y"); 
+			ldaSta("#2", "spr_c");
+			ldaSta("#SPR_PAL_5|SPR_PRIOR_2", "spr_a");
+			stz("spr_sz"); // 8x8 
+			jsr("oam_sprite");
+		});
+	}
+	
+	
 	
 	private void readJoypad1() {
 		readJoypad1(new IJoypadReader() {
