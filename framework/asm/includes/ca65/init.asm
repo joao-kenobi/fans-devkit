@@ -22,7 +22,6 @@ phk
 plb
 lda #$4200
 tcd
-
 lda #$FF00
 sta $00
 stz $00
@@ -34,7 +33,6 @@ stz $0A
 stz $0C
 lda #$2100
 tcd
-
 lda #$0080
 sta $00
 stz $02
@@ -49,7 +47,6 @@ stz $28
 stz $2A
 stz $2C
 stz $2E
-
 ldx #$0030
 stx $30
 ldy #$00E0
@@ -80,48 +77,81 @@ rep #$30 ; A,X,Y 16 BIT MODE
 lda #$0000
 tcd
 
+clear_wram:
+rep #$20  ; A 16 BIT MODE
+sep #$10 ; X,Y 8 BIT MODE
+stz $2181 ;WMADDL
+stz $2182 ;WMADDM
+lda #$8008
+sta $4300 ;DMAP0
+lda #.loword(DMAZero)
+sta $4302 ;A1T0L
+ldx #^DMAZero
+stx $4304 ;A1B0
+stz $4305 ;DAS0L
+ldx #1
+stx $420B ;MDMAEN
+stx $420B
+sep #$20 ; A 8 BIT MODE
+rep #$10 ; X,Y 16 BIT MODE
+jsr clear_palette
+jsr clear_oam
+jsr clear_vram
+sep #$20 ; A 8 BIT MODE
+lda #1
+sta $420D ;MEMSEL
+rep #$30 ; A,X,Y 16 BIT MODE
+jml main
+
 clear_oam:
 php
 sep #$20 ; A 8 BIT MODE
 rep #$10 ; X,Y 16 BIT MODE
-
 ldx #.loword(oam_lo_buffer)
 stx $2181 ;WMADDL
 stz $2183 ;WMADDH
-
 ldx #$8008
 stx $4300 ;DMAP0
-
 ldx #.loword(SpriteEmptyVal)
 stx $4302 ;A1T0L
-
 ldx #^SpriteEmptyVal
 stx $4304 ;A1B0
-
 ldx #$200
 stx $4305 ;DAS0L
-
 lda #%1
 sta $420B ;MDMAEN
-
 ldx #.loword(oam_lo_buffer)
 stx $2181 ;WMADDL
 stz $2183 ;WMADDH
-
 ldx #$8008
 stx $4300 ;DMAP0
-
 ldx #.loword(SpriteUpperEmpty)
 stx $4302 ;A1T0L
-
 ldx #^SpriteUpperEmpty
 stx $4304 ;A1B0
-
 ldx #$0020
 stx $4305 ;DAS0L
-
 lda #%1
 sta $420B ;MDMAEN
+plp
+rts
+
+clear_vram:
+php
+rep #$20  ; A 16 BIT MODE
+sep #$10 ; X,Y 8 BIT MODE
+ldx #$80
+stx $2115 ;VMAIN
+stz $2116 ;VMADDL
+stz $4305 ;DAS0L
+lda #$1809
+sta $4300 ;DMAP0
+lda #.loword(DMAZero)
+sta $4303 ;A1T0H
+ldx #^DMAZero
+stx $4304 ;A1B0
+ldx #1
+stx $420B ;MDMAEN
 plp
 rts
 
