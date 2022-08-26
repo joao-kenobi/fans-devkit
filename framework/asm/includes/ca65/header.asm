@@ -23,7 +23,7 @@
 .addr IRQ_end  ;brk native **
 .addr $0000  ;abort native not used *
 .addr NMI ;nmi native 
-.addr RESET ;RESET native
+.addr reset ;RESET native
 .addr IRQ ;irq native
 
 
@@ -36,7 +36,7 @@
 .addr $0000 ; not used
 .addr $0000  ;abort not used *
 .addr IRQ_end ;nmi emulation
-.addr RESET ;RESET emulation
+.addr reset ;RESET emulation
 .addr IRQ_end ;irq/brk emulation **
 
 ;* the SNES doesn't use the ABORT vector

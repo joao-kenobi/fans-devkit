@@ -5,10 +5,6 @@ import fans.core.enums.BusRegisters;
 
 public class Part1BackgroundColor extends Ca65Base {
 	
-	protected void before() {
-		
-	}
-	
 	public void init() {
 		a8Bit();
 		

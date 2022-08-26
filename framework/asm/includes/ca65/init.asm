@@ -11,7 +11,7 @@ bit $4211 ;TIMEUP
 IRQ_end:
 rti
 
-RESET:
+reset:
 sei
 clc
 xce
@@ -79,3 +79,56 @@ stz $20
 rep #$30 ; A,X,Y 16 BIT MODE
 lda #$0000
 tcd
+
+clear_oam:
+php
+sep #$20 ; A 8 BIT MODE
+rep #$10 ; X,Y 16 BIT MODE
+
+ldx #.loword(oam_lo_buffer)
+stx $2181 ;WMADDL
+stz $2183 ;WMADDH
+
+ldx #$8008
+stx $4300 ;DMAP0
+
+ldx #.loword(SpriteEmptyVal)
+stx $4302 ;A1T0L
+
+ldx #^SpriteEmptyVal
+stx $4304 ;A1B0
+
+ldx #$200
+stx $4305 ;DAS0L
+
+lda #%1
+sta $420B ;MDMAEN
+
+ldx #.loword(oam_lo_buffer)
+stx $2181 ;WMADDL
+stz $2183 ;WMADDH
+
+ldx #$8008
+stx $4300 ;DMAP0
+
+ldx #.loword(SpriteUpperEmpty)
+stx $4302 ;A1T0L
+
+ldx #^SpriteUpperEmpty
+stx $4304 ;A1B0
+
+ldx #$0020
+stx $4305 ;DAS0L
+
+lda #%1
+sta $420B ;MDMAEN
+plp
+rts
+
+SpriteUpperEmpty:
+
+DMAZero:
+.word $0000
+
+SpriteEmptyVal:
+.byte 224
