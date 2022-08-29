@@ -95,13 +95,53 @@ stx $420B
 sep #$20 ; A 8 BIT MODE
 rep #$10 ; X,Y 16 BIT MODE
 jsr clear_palette
+jsr dma_palette
 jsr clear_oam
+jsr dma_oam
 jsr clear_vram
 sep #$20 ; A 8 BIT MODE
 lda #1
 sta $420D ;MEMSEL
 rep #$30 ; A,X,Y 16 BIT MODE
 jml main
+
+clear_palette:
+php
+sep #$20 ; A 8 BIT MODE
+rep #$10 ; X,Y 16 BIT MODE
+ldx #.loword(palette_buffer)
+stx $2181 ;WMADDL
+stz $2183 ;WMADDH
+ldx #$8008
+stx $4300 ;DMAP0
+ldx #.loword(DMAZero)
+stx $4302 ;A1T0L
+lda #^DMAZero
+sta $4304 ;A1B0
+ldx #$200
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
+plp
+rts
+
+dma_palette:
+php
+sep #$20 ; A 8 BIT MODE
+rep #$10 ; X,Y 16 BIT MODE
+stz $2121 ;CGADD
+ldx #$2200
+stx $4300 ;DMAP0
+ldx #.loword(palette_buffer)
+stx $4302 ;A1T0L
+lda #^palette_buffer
+sta $4304 ;A1B0
+ldx #$200
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
+plp
+rts
 
 clear_oam:
 php
@@ -114,21 +154,44 @@ ldx #$8008
 stx $4300 ;DMAP0
 ldx #.loword(SpriteEmptyVal)
 stx $4302 ;A1T0L
-ldx #^SpriteEmptyVal
-stx $4304 ;A1B0
+lda #^SpriteEmptyVal
+sta $4304 ;A1B0
 ldx #$200
 stx $4305 ;DAS0L
 lda #%1
 sta $420B ;MDMAEN
+ldx #.loword(SpriteUpperEmpty)
+stx $4302 ;A1T0L
+lda #^SpriteUpperEmpty
+sta $4304 ;A1B0
+ldx #$0020
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
+plp
+rts
+
+dma_oam:
+php
+sep #$20 ; A 8 BIT MODE
+rep #$10 ; X,Y 16 BIT MODE
 ldx #.loword(oam_lo_buffer)
 stx $2181 ;WMADDL
 stz $2183 ;WMADDH
 ldx #$8008
 stx $4300 ;DMAP0
+ldx #.loword(SpriteEmptyVal)
+stx $4302 ;A1T0L
+lda #^SpriteEmptyVal
+sta $4304 ;A1B0
+ldx #$200
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
 ldx #.loword(SpriteUpperEmpty)
 stx $4302 ;A1T0L
-ldx #^SpriteUpperEmpty
-stx $4304 ;A1B0
+lda #^SpriteUpperEmpty
+sta $4304 ;A1B0
 ldx #$0020
 stx $4305 ;DAS0L
 lda #%1
@@ -138,20 +201,20 @@ rts
 
 clear_vram:
 php
-rep #$20  ; A 16 BIT MODE
-sep #$10 ; X,Y 8 BIT MODE
-ldx #$80
-stx $2115 ;VMAIN
+sep #$20 ; A 8 BIT MODE
+rep #$10 ; X,Y 16 BIT MODE
+lda #$80
+sta $2115 ;VMAIN
 stz $2116 ;VMADDL
 stz $4305 ;DAS0L
-lda #$1809
-sta $4300 ;DMAP0
-lda #.loword(DMAZero)
-sta $4303 ;A1T0H
-ldx #^DMAZero
-stx $4304 ;A1B0
-ldx #1
-stx $420B ;MDMAEN
+ldx #$1809
+stx $4300 ;DMAP0
+ldx #.loword(DMAZero)
+stx $4302 ;A1T0L
+lda #^DMAZero
+sta $4304 ;A1B0
+lda #%1
+sta $420B ;MDMAEN
 plp
 rts
 

@@ -24,12 +24,11 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	protected void init() {
 		blockMove("bg_palette", "palette_buffer"); // COPY PALETTES to PAL_BUFFER
 		
-		//a8Bit();
+		a8Bit();
 		dmaToCgram("palette_buffer", DmaPxConstants.TRANSFER_MODE_0, 0); // DMA from PAL_BUFFER to CGRAM
 		
 		blockMove("sprites", "oam_lo_buffer"); // COPY sprites to sprite buffer
-		a8Bit(); // block move will put AXY16. Undo that.
-		
+		a8Bit();
 		
 		// COPY just 1 high table number	
 		//#$6A = 01 101010 = flip all the size bits to large
