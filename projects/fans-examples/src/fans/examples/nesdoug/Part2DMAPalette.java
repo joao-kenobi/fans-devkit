@@ -1,38 +1,30 @@
 package fans.examples.nesdoug;
 
 import fans.core.Ca65Base;
-import fans.core.constants.DmaPxConstants;
+import fans.core.constants.DmaConstants;
 import fans.core.enums.BusRegisters;
 
 public class Part2DMAPalette extends Ca65Base {
 	
-	protected void before() {
-		
-	}
+	private static final String GFXPATH = "includes/graphics/nesdoug/part2";
+	private static final String BG_PALETTE_LABEL = "bg_palette";
+	
 	
 	public void init() {		
-		a8Bit();
 		stz(BusRegisters.CGADD);
 		
-		dmaFromPalleteToCGRAM();
-		dmaFromPalleteToCGRAM();
+		dmaToCgram(BG_PALETTE_LABEL, DmaConstants.TRANSFER_MODE_0, 0);
+		dmaToCgram(BG_PALETTE_LABEL, DmaConstants.TRANSFER_MODE_0, 0);
 		initScreen();
 		foreverLoop();
+	
 		
-		label("BG_Palette", () -> {			
-			incbin("../pallete/default.pal");
-		});
-	}
-
-	private void dmaFromPalleteToCGRAM() {
-		String source = "BG_Palette";
-		String length = "#256"; 
-		int channel = 0;
-		
-		dmaToCgram(source, length, DmaPxConstants.TRANSFER_MODE_0, channel);
+		label("bg_palette", () -> {			
+			incbin(GFXPATH+"/default.pal");
+		}, "bg_palette_end");
 	}
 
 	public static void main(String[] args) {
-		new Part2DMAPalette().buildAsmFile();
+		new Part2DMAPalette().compileAndRun();
 	}
 }

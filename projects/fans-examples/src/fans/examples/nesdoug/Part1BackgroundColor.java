@@ -6,8 +6,6 @@ import fans.core.enums.BusRegisters;
 public class Part1BackgroundColor extends Ca65Base {
 	
 	public void init() {
-		a8Bit();
-		
 		stz(BusRegisters.CGADD);
 		ldaStaTwice("#$001F", BusRegisters.CGDATA);
 		
@@ -16,6 +14,6 @@ public class Part1BackgroundColor extends Ca65Base {
 	}
 
 	public static void main(String[] args) {
-		new Part1BackgroundColor().buildAsmFile();
+		new Part1BackgroundColor().compileAndRun();
 	}
 }

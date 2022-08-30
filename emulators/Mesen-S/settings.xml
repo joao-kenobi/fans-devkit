@@ -2,7 +2,7 @@
 <Configuration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Version>0.4.0</Version>
   <Video>
-    <VideoScale>1.9497907949790796</VideoScale>
+    <VideoScale>1</VideoScale>
     <CustomAspectRatio>1</CustomAspectRatio>
     <VideoFilter>None</VideoFilter>
     <AspectRatio>NoStretching</AspectRatio>
@@ -595,17 +595,145 @@
     <DisableGameSelectionScreen>false</DisableGameSelectionScreen>
     <ShortcutKeys1>
       <ShortcutKeyInfo>
-        <Shortcut>FastForward</Shortcut>
+        <Shortcut>LoadStateFromFile</Shortcut>
         <KeyCombination>
-          <Key1>9</Key1>
+          <Key1>17</Key1>
+          <Key2>76</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>LoadStateSlot7</Shortcut>
+        <KeyCombination>
+          <Key1>118</Key1>
           <Key2>0</Key2>
           <Key3>0</Key3>
         </KeyCombination>
       </ShortcutKeyInfo>
       <ShortcutKeyInfo>
-        <Shortcut>Rewind</Shortcut>
+        <Shortcut>LoadStateSlot6</Shortcut>
         <KeyCombination>
-          <Key1>8</Key1>
+          <Key1>117</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>LoadStateSlot5</Shortcut>
+        <KeyCombination>
+          <Key1>116</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>LoadStateSlot4</Shortcut>
+        <KeyCombination>
+          <Key1>115</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>LoadStateSlot3</Shortcut>
+        <KeyCombination>
+          <Key1>114</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>LoadStateSlot2</Shortcut>
+        <KeyCombination>
+          <Key1>113</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>LoadStateSlot1</Shortcut>
+        <KeyCombination>
+          <Key1>112</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SaveStateToFile</Shortcut>
+        <KeyCombination>
+          <Key1>17</Key1>
+          <Key2>83</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SaveStateSlot7</Shortcut>
+        <KeyCombination>
+          <Key1>16</Key1>
+          <Key2>118</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SaveStateSlot6</Shortcut>
+        <KeyCombination>
+          <Key1>16</Key1>
+          <Key2>117</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SaveStateSlot5</Shortcut>
+        <KeyCombination>
+          <Key1>16</Key1>
+          <Key2>116</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SaveStateSlot4</Shortcut>
+        <KeyCombination>
+          <Key1>16</Key1>
+          <Key2>115</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SaveStateSlot3</Shortcut>
+        <KeyCombination>
+          <Key1>16</Key1>
+          <Key2>114</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SaveStateSlot2</Shortcut>
+        <KeyCombination>
+          <Key1>16</Key1>
+          <Key2>113</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SaveStateSlot1</Shortcut>
+        <KeyCombination>
+          <Key1>16</Key1>
+          <Key2>112</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>OpenFile</Shortcut>
+        <KeyCombination>
+          <Key1>17</Key1>
+          <Key2>79</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>DecreaseSpeed</Shortcut>
+        <KeyCombination>
+          <Key1>189</Key1>
           <Key2>0</Key2>
           <Key3>0</Key3>
         </KeyCombination>
@@ -619,14 +747,6 @@
         </KeyCombination>
       </ShortcutKeyInfo>
       <ShortcutKeyInfo>
-        <Shortcut>DecreaseSpeed</Shortcut>
-        <KeyCombination>
-          <Key1>189</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
         <Shortcut>MaxSpeed</Shortcut>
         <KeyCombination>
           <Key1>120</Key1>
@@ -635,18 +755,18 @@
         </KeyCombination>
       </ShortcutKeyInfo>
       <ShortcutKeyInfo>
-        <Shortcut>IncreaseVolume</Shortcut>
-        <KeyCombination>
-          <Key1>17</Key1>
-          <Key2>187</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
         <Shortcut>DecreaseVolume</Shortcut>
         <KeyCombination>
           <Key1>17</Key1>
           <Key2>189</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>IncreaseVolume</Shortcut>
+        <KeyCombination>
+          <Key1>17</Key1>
+          <Key2>187</Key2>
           <Key3>0</Key3>
         </KeyCombination>
       </ShortcutKeyInfo>
@@ -667,66 +787,10 @@
         </KeyCombination>
       </ShortcutKeyInfo>
       <ShortcutKeyInfo>
-        <Shortcut>TakeScreenshot</Shortcut>
-        <KeyCombination>
-          <Key1>123</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>Reset</Shortcut>
-        <KeyCombination>
-          <Key1>17</Key1>
-          <Key2>82</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>PowerCycle</Shortcut>
-        <KeyCombination>
-          <Key1>17</Key1>
-          <Key2>84</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>Pause</Shortcut>
-        <KeyCombination>
-          <Key1>27</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SetScale1x</Shortcut>
+        <Shortcut>SetScale6x</Shortcut>
         <KeyCombination>
           <Key1>18</Key1>
-          <Key2>49</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SetScale2x</Shortcut>
-        <KeyCombination>
-          <Key1>18</Key1>
-          <Key2>50</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SetScale3x</Shortcut>
-        <KeyCombination>
-          <Key1>18</Key1>
-          <Key2>51</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SetScale4x</Shortcut>
-        <KeyCombination>
-          <Key1>18</Key1>
-          <Key2>52</Key2>
+          <Key2>54</Key2>
           <Key3>0</Key3>
         </KeyCombination>
       </ShortcutKeyInfo>
@@ -739,163 +803,65 @@
         </KeyCombination>
       </ShortcutKeyInfo>
       <ShortcutKeyInfo>
-        <Shortcut>SetScale6x</Shortcut>
+        <Shortcut>SetScale4x</Shortcut>
         <KeyCombination>
           <Key1>18</Key1>
-          <Key2>54</Key2>
+          <Key2>52</Key2>
           <Key3>0</Key3>
         </KeyCombination>
       </ShortcutKeyInfo>
       <ShortcutKeyInfo>
-        <Shortcut>OpenFile</Shortcut>
+        <Shortcut>SetScale3x</Shortcut>
+        <KeyCombination>
+          <Key1>18</Key1>
+          <Key2>51</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SetScale2x</Shortcut>
+        <KeyCombination>
+          <Key1>18</Key1>
+          <Key2>50</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>SetScale1x</Shortcut>
+        <KeyCombination>
+          <Key1>18</Key1>
+          <Key2>49</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>TakeScreenshot</Shortcut>
+        <KeyCombination>
+          <Key1>123</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>PowerCycle</Shortcut>
         <KeyCombination>
           <Key1>17</Key1>
-          <Key2>79</Key2>
+          <Key2>84</Key2>
           <Key3>0</Key3>
         </KeyCombination>
       </ShortcutKeyInfo>
       <ShortcutKeyInfo>
-        <Shortcut>SaveStateSlot1</Shortcut>
-        <KeyCombination>
-          <Key1>16</Key1>
-          <Key2>112</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SaveStateSlot2</Shortcut>
-        <KeyCombination>
-          <Key1>16</Key1>
-          <Key2>113</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SaveStateSlot3</Shortcut>
-        <KeyCombination>
-          <Key1>16</Key1>
-          <Key2>114</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SaveStateSlot4</Shortcut>
-        <KeyCombination>
-          <Key1>16</Key1>
-          <Key2>115</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SaveStateSlot5</Shortcut>
-        <KeyCombination>
-          <Key1>16</Key1>
-          <Key2>116</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SaveStateSlot6</Shortcut>
-        <KeyCombination>
-          <Key1>16</Key1>
-          <Key2>117</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SaveStateSlot7</Shortcut>
-        <KeyCombination>
-          <Key1>16</Key1>
-          <Key2>118</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>SaveStateToFile</Shortcut>
+        <Shortcut>Reset</Shortcut>
         <KeyCombination>
           <Key1>17</Key1>
-          <Key2>83</Key2>
+          <Key2>82</Key2>
           <Key3>0</Key3>
         </KeyCombination>
       </ShortcutKeyInfo>
       <ShortcutKeyInfo>
-        <Shortcut>LoadStateSlot1</Shortcut>
+        <Shortcut>Pause</Shortcut>
         <KeyCombination>
-          <Key1>112</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>LoadStateSlot2</Shortcut>
-        <KeyCombination>
-          <Key1>113</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>LoadStateSlot3</Shortcut>
-        <KeyCombination>
-          <Key1>114</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>LoadStateSlot4</Shortcut>
-        <KeyCombination>
-          <Key1>115</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>LoadStateSlot5</Shortcut>
-        <KeyCombination>
-          <Key1>116</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>LoadStateSlot6</Shortcut>
-        <KeyCombination>
-          <Key1>117</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>LoadStateSlot7</Shortcut>
-        <KeyCombination>
-          <Key1>118</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>LoadStateSlotAuto</Shortcut>
-        <KeyCombination>
-          <Key1>119</Key1>
-          <Key2>0</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-      <ShortcutKeyInfo>
-        <Shortcut>LoadStateFromFile</Shortcut>
-        <KeyCombination>
-          <Key1>17</Key1>
-          <Key2>76</Key2>
-          <Key3>0</Key3>
-        </KeyCombination>
-      </ShortcutKeyInfo>
-    </ShortcutKeys1>
-    <ShortcutKeys2>
-      <ShortcutKeyInfo>
-        <Shortcut>FastForward</Shortcut>
-        <KeyCombination>
-          <Key1>65553</Key1>
+          <Key1>27</Key1>
           <Key2>0</Key2>
           <Key3>0</Key3>
         </KeyCombination>
@@ -903,7 +869,33 @@
       <ShortcutKeyInfo>
         <Shortcut>Rewind</Shortcut>
         <KeyCombination>
+          <Key1>8</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>FastForward</Shortcut>
+        <KeyCombination>
+          <Key1>9</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+    </ShortcutKeys1>
+    <ShortcutKeys2>
+      <ShortcutKeyInfo>
+        <Shortcut>Rewind</Shortcut>
+        <KeyCombination>
           <Key1>65552</Key1>
+          <Key2>0</Key2>
+          <Key3>0</Key3>
+        </KeyCombination>
+      </ShortcutKeyInfo>
+      <ShortcutKeyInfo>
+        <Shortcut>FastForward</Shortcut>
+        <KeyCombination>
+          <Key1>65553</Key1>
           <Key2>0</Key2>
           <Key3>0</Key3>
         </KeyCombination>
@@ -1178,13 +1170,13 @@
     <Debugger>
       <WindowSize>
         <Width>975</Width>
-        <Height>1066</Height>
+        <Height>1002</Height>
       </WindowSize>
       <WindowLocation>
-        <X>846</X>
-        <Y>63</Y>
+        <X>797</X>
+        <Y>20</Y>
       </WindowLocation>
-      <SplitterDistance>873</SplitterDistance>
+      <SplitterDistance>809</SplitterDistance>
       <ShowByteCode>false</ShowByteCode>
       <UseLowerCaseDisassembly>false</UseLowerCaseDisassembly>
       <BreakOnBrk>false</BreakOnBrk>
@@ -1353,6 +1345,14 @@
     <Items>
       <RecentItem>
         <RomFile>
+          <Path>..\..\output\rom.sfc</Path>
+          <InnerFile />
+          <InnerFileIndex>0</InnerFileIndex>
+        </RomFile>
+        <PatchFile xsi:nil="true" />
+      </RecentItem>
+      <RecentItem>
+        <RomFile>
           <Path>C:\ambiente_desenvolvimento\test\snes-framework\snes-framework\SnesFramework\framework\assemblers\ca65\..\..\..\home\output\rom.sfc</Path>
           <InnerFile />
           <InnerFileIndex>0</InnerFileIndex>
@@ -1423,14 +1423,6 @@
         </RomFile>
         <PatchFile xsi:nil="true" />
       </RecentItem>
-      <RecentItem>
-        <RomFile>
-          <Path>C:\ambiente_desenvolvimento\test\snes-lab\snes-lab\ambiente_wesleyac\sources\part3\src\..\..\..\..\roms\rom.sfc</Path>
-          <InnerFile />
-          <InnerFileIndex>0</InnerFileIndex>
-        </RomFile>
-        <PatchFile xsi:nil="true" />
-      </RecentItem>
     </Items>
   </RecentFiles>
   <AviRecord>
@@ -1461,12 +1453,12 @@
     <ServerPassword />
   </Netplay>
   <WindowLocation>
-    <X>412</X>
-    <Y>505</Y>
+    <X>520</X>
+    <Y>538</Y>
   </WindowLocation>
   <WindowSize>
-    <Width>713</Width>
-    <Height>529</Height>
+    <Width>272</Width>
+    <Height>302</Height>
   </WindowSize>
   <NeedInputReinit2>false</NeedInputReinit2>
   <DefaultKeyMappings>ArrowKeys</DefaultKeyMappings>

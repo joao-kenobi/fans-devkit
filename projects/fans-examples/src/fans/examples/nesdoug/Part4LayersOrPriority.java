@@ -2,46 +2,38 @@ package fans.examples.nesdoug;
 
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
-import fans.core.constants.DmaPxConstants;
+import fans.core.constants.DmaConstants;
 import fans.core.constants.TmOrTsConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
 
 public class Part4LayersOrPriority extends Ca65Base {
 
-	protected void before() {
-		segment("ZEROPAGE", () -> {			
-			rawAsm("in_nmi: .res 2");
-		});
-		
-		segment("BSS", () -> {			
-			rawAsm("palette_buffer: .res 512");
-			rawAsm("palette_buffer_end:");
-
-			rawAsm("oam_lo_buffer: .res 512 ;low table ");
-			rawAsm("oam_hi_buffer: .res 32 ;high table ");
-			rawAsm("oam_buffer_end:");
-		});
-	}
+	private static final String GFXPATH = "includes/graphics/nesdoug/part4";
+	
+	private static final String BG_PALETTE_LABEL = "bg_palette";
+	
+	private static final String TILES_LABEL = "tiles";
+	private static final String TILES2_LABEL = "tiles2";
+	
+	private static final String TILEMAP_LABEL = "tilemap";
+	private static final String TILEMAP2_LABEL = "tilemap2";
+	private static final String TILEMAP3_LABEL = "tilemap3";
 	
 	public void init() {
-		a8Bit();
-		
 		dmaFromPalleteToCGRAM();
 		
 		ldaSta(VMainConstants.INCREMENT_MODE_BY_1, BusRegisters.VMAIN);
 		dmaFromTilesToVRAM();
 		dmaFromTilemapToVRAM();
 		
-		ldaSta(BgModeConstants.MODE1_BG3_ON_TOP, BusRegisters.BGMODE);
-		
-		stz(BusRegisters.BG12NBA); 
-		ldaSta("#$03", BusRegisters.BG34NBA);
-		ldaSta("#$60", BusRegisters.BG1SC);
-		ldaSta("#$68", BusRegisters.BG2SC);
-		ldaSta("#$70", BusRegisters.BG3SC);
-		
-		ldaSta(TmOrTsConstants.ALL_ON_SCREEN, BusRegisters.TM);
+		setBGMode(BgModeConstants.MODE1_BG3_ON_TOP);
+		setBG1And2CharacterAddress("#$00");
+		setBG3And4CharacterAddress("#$03");
+		setBG1TilemapAddress("#$60");
+		setBG2TilemapAddress("#$68");
+		setBG3TilemapAddress("#$70");
+		enableMainScreenDesignation(TmOrTsConstants.ALL_ON_SCREEN);
 		
 		initScreen();
 		foreverLoop();
@@ -51,78 +43,53 @@ public class Part4LayersOrPriority extends Ca65Base {
 	private void importGraphics() {
 		segment("RODATA1");
 		
-		String gfxPath = "includes/graphics/nesdoug/part4";
 		
-		label("BG_Palette", () -> {
-			incbin(gfxPath+"/allBG.pal"); // 256 bytes
+		labelWithEnd(BG_PALETTE_LABEL, () -> {
+			incbin(GFXPATH+"/allBG.pal"); // 256 bytes
 		});
 		
-		label("Tiles", () -> {
+		labelWithEnd(TILES_LABEL, () -> {
 			// 4bpp tileset
-			incbin(gfxPath+"/moon.chr");
-		}, "End_Tiles");
+			incbin(GFXPATH+"/moon.chr");
+		});
 		
-		label("Tiles2", () -> {
+		labelWithEnd(TILES2_LABEL, () -> {
 			// 4bpp tileset
-			incbin(gfxPath+"/spacebar.chr");
-		}, "End_Tiles2");
-		
-		label("Tilemap", () -> {
-			// $700 bytes
-			incbin(gfxPath+"/moon.map");
+			incbin(GFXPATH+"/spacebar.chr");
 		});
 		
-		label("Tilemap2", () -> {
+		labelWithEnd(TILEMAP_LABEL, () -> {
 			// $700 bytes
-			incbin(gfxPath+"/bluebar.map");
+			incbin(GFXPATH+"/moon.map");
 		});
 		
-		label("Tilemap3", () -> {
+		labelWithEnd(TILEMAP2_LABEL, () -> {
 			// $700 bytes
-			incbin(gfxPath+"/spacebar.map");
+			incbin(GFXPATH+"/bluebar.map");
+		});
+		
+		labelWithEnd(TILEMAP3_LABEL, () -> {
+			// $700 bytes
+			incbin(GFXPATH+"/spacebar.map");
 		});
 	}
 	
 	private void dmaFromPalleteToCGRAM() {
-		stz(BusRegisters.CGADD);
-		
-		String source = "BG_Palette";
-		String length = "#256";
-		String transferMode = DmaPxConstants.TRANSFER_MODE_0;
-		int channel = 0;
-		
-		dmaToCgram(source, length, transferMode, channel);
+		stz(BusRegisters.CGADD);		
+		dmaToCgram(BG_PALETTE_LABEL, DmaConstants.TRANSFER_MODE_0, DmaConstants.CHANNEL_0);
 	}
 	
 	private void dmaFromTilesToVRAM() {
+		ldxStx("#$0000", BusRegisters.VMADDL);
+		dmaToVram(TILES_LABEL, DmaConstants.TRANSFER_MODE_1, DmaConstants.CHANNEL_0);
 		
-		// === TILES 1 ================================================================
-		ldxStx("#$0000", BusRegisters.VMADDL); // set an address in the vram of $0000
-		
-		String source = "Tiles";
-		String length = "#(End_Tiles-Tiles)";
-		String transferMode = DmaPxConstants.TRANSFER_MODE_1;
-		int channel = 0;
-		
-		dmaToVram(source, length, transferMode, channel);
-		// ===========================================================================
-		
-		// === TILES 2 ================================================================
-		ldxStx("#$3000", BusRegisters.VMADDL); // set an address in the vram of $3000
-				
-		// 4300 and 4301 still hold the correct values for transfers to vram
-		// and don't need to be rewritten here		
-		source = "Tiles2";
-		length = "#(End_Tiles2-Tiles2)";
-		
-		dma(source, length, channel);
-		// ===========================================================================
+		ldxStx("#$3000", BusRegisters.VMADDL);		
+		dma(TILES2_LABEL, DmaConstants.CHANNEL_0);
 	}
 	
 	private void dmaFromTilemapToVRAM() {
-		String[] tilemapLabels = {"Tilemap", "Tilemap2", "Tilemap3"};
+		String[] tilemapLabels = {TILEMAP_LABEL, TILEMAP2_LABEL, TILEMAP3_LABEL};
 		int[] vramAddresses = {6000, 6800, 7000};
-		String length = "#$700";
 		int channel = 0;			
 		
 		
@@ -131,11 +98,11 @@ public class Part4LayersOrPriority extends Ca65Base {
 			int vramAddress = vramAddresses[i];
 			
 			ldxStx("#$"+vramAddress, BusRegisters.VMADDL);
-			dma(source, length, channel);
+			dma(source, channel);
 		}	
 	}
 	
 	public static void main(String[] args) {
-		new Part4LayersOrPriority().buildAsmFile(); 
+		new Part4LayersOrPriority().compileAndRun(); 
 	}
 }

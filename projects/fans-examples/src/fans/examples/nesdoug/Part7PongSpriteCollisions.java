@@ -2,7 +2,7 @@ package fans.examples.nesdoug;
 
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
-import fans.core.constants.DmaPxConstants;
+import fans.core.constants.DmaConstants;
 import fans.core.constants.NmiTIMenConstants;
 import fans.core.constants.TmOrTsConstants;
 import fans.core.constants.VMainConstants;
@@ -81,25 +81,25 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 		blockMove("BG_Palette", "palette_buffer", 512);
 		a8Bit();
 		
-		dmaToCgram("palette_buffer", "#(palette_buffer_end - palette_buffer)", DmaPxConstants.TRANSFER_MODE_0, 0);
+		dmaToCgram("palette_buffer", "#(palette_buffer_end - palette_buffer)", DmaConstants.TRANSFER_MODE_0, 0);
 		
 
 		ldaSta(VMainConstants.INCREMENT_MODE_BY_1, BusRegisters.VMAIN);
 		
 		ldxStx("#$0000", BusRegisters.VMADDL);
-		dmaToVram("BG_Tiles", "#(End_BG_Tiles-BG_Tiles)", DmaPxConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("BG_Tiles", "#(End_BG_Tiles-BG_Tiles)", DmaConstants.TRANSFER_MODE_1, 0);
 		
 		ldxStx("#$3000", BusRegisters.VMADDL);
-		dmaToVram("HUD_Tiles", "#(End_HUD_Tiles-HUD_Tiles)", DmaPxConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("HUD_Tiles", "#(End_HUD_Tiles-HUD_Tiles)", DmaConstants.TRANSFER_MODE_1, 0);
 		
 		ldxStx("#$4000", BusRegisters.VMADDL);
-		dmaToVram("Spr_Tiles", "#(End_Spr_Tiles-Spr_Tiles)", DmaPxConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("Spr_Tiles", "#(End_Spr_Tiles-Spr_Tiles)", DmaConstants.TRANSFER_MODE_1, 0);
 		
 		ldxStx("#$7000", BusRegisters.VMADDL);
-		dmaToVram("Map1", "#$700", DmaPxConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("Map1", "#$700", DmaConstants.TRANSFER_MODE_1, 0);
 		
 		ldxStx("#$7000", BusRegisters.VMADDL);
-		dmaToVram("Map3", "#$700", DmaPxConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("Map3", "#$700", DmaConstants.TRANSFER_MODE_1, 0);
 		
 		setBGMode(BgModeConstants.MODE1_BG3_ON_TOP);
 		
@@ -470,6 +470,6 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 	}
 	
 	public static void main(String[] args) {
-		new Part7PongSpriteCollisions().buildAsmFile();
+		new Part7PongSpriteCollisions().compileAndRun();
 	}
 }

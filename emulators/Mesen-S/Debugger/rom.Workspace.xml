@@ -6,7 +6,7 @@
       <BreakOnWrite>false</BreakOnWrite>
       <BreakOnExec>true</BreakOnExec>
       <Enabled>true</Enabled>
-      <MarkEvent>false</MarkEvent>
+      <MarkEvent>true</MarkEvent>
       <Address>86</Address>
       <StartAddress>0</StartAddress>
       <EndAddress>0</EndAddress>
@@ -1558,6 +1558,46 @@
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
+    <CodeLabel>
+      <Address>1312</Address>
+      <MemoryType>WorkRam</MemoryType>
+      <Label>oam_buffer_end</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1280</Address>
+      <MemoryType>WorkRam</MemoryType>
+      <Label>oam_hi_buffer</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>32</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>768</Address>
+      <MemoryType>WorkRam</MemoryType>
+      <Label>palette_buffer_end</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>512</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>256</Address>
+      <MemoryType>WorkRam</MemoryType>
+      <Label>palette_buffer</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>512</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>0</Address>
+      <MemoryType>WorkRam</MemoryType>
+      <Label>in_nmi</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
   </CpuLabels>
   <SpcLabels>
     <CodeLabel>
@@ -1685,6 +1725,889 @@
       <MemoryType>SpcRam</MemoryType>
       <Label>T2OUT</Label>
       <Comment>Timer 2 output</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421886</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>_foreverLoop</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421861</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>DMAZero</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421863</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>SpriteEmptyVal</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421864</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>main</Label>
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421821</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>clear_vram</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421755</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>dma_oam</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421689</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>clear_oam</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421651</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>dma_palette</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421607</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>clear_palette</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421537</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>clear_wram</Label>
+      <Comment> A 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421386</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>reset</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421385</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>IRQ_end</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421382</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>IRQ</Label>
+      <Comment>TIMEUP</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421376</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label>NMI</Label>
+      <Comment>RDNMI</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421706</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DMAP0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421712</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421756</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454103</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> ROM size (2^# in kB)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421783</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1B0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421811</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421734</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421750</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454122</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>nmi native </Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421851</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1B0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421873</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> TESTE COMENTARIO</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421598</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MEMSEL</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421564</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421745</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421652</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421697</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>WMADDL</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454142</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>irq/brk emulation **</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421828</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>VMAIN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421824</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421766</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>WMADDH</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421556</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454138</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>nmi emulation</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454128</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>fff0 not used</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454140</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>RESET emulation</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421723</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454116</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>ffe4 - native mode vectors&#xD;
+cop native **</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454136</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>abort not used *</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454108</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> checksum of all bytes</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454107</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> ROM revision number</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454112</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>ffe0 not used</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421531</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A,X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421561</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1B0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454124</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>RESET native</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421654</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421673</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1B0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421463</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421700</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>WMADDH</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421739</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1B0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421758</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421875</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>CGDATA</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421608</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421728</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421763</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>WMADDL</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421816</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421635</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1B0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421641</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421610</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421601</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A,X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421594</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421656</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>CGADD</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421866</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421615</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>WMADDL</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421690</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421575</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421846</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454106</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> publisher id</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421618</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>WMADDH</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421544</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>WMADDM</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421569</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421805</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1B0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421646</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421800</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454110</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> $FFFF minus checksum</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421630</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421778</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421692</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454101</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>LoROM FastROM</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421662</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DMAP0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421624</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DMAP0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454120</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>abort native not used *</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454132</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>fff4 - emulation mode vectors&#xD;
+cop emulation **</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421822</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421856</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454134</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> not used</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421717</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1B0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421834</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421577</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421883</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>INIDISP</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421870</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>CGADD</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454102</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> extra chips in cartridge, 00: no extra RAM; 02: RAM with battery</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421794</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421679</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421789</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421684</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454105</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> US</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454080</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>$00FFC0-$00FFFF&#xD;
+rom name 21 chars</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454126</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>irq native</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454118</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>brk native **</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421550</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DMAP0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421840</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DMAP0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8454104</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> backup RAM size</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421772</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DMAP0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421539</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> X,Y 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421668</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421541</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>WMADDL</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421831</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>VMADDL</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

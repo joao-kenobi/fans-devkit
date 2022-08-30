@@ -2,7 +2,7 @@ package fans.examples.nesdoug;
 
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
-import fans.core.constants.DmaPxConstants;
+import fans.core.constants.DmaConstants;
 import fans.core.constants.TmOrTsConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
@@ -12,7 +12,7 @@ public class Part5Sprites extends Ca65Base {
 	protected void init() {
 		blockMove("BG_Palette", "palette_buffer", "#(palette_buffer_end-palette_buffer)");
 		
-		dmaToCgram("palette_buffer", "#(palette_buffer_end-palette_buffer)", DmaPxConstants.TRANSFER_MODE_0, 0);
+		dmaToCgram("palette_buffer", "#(palette_buffer_end-palette_buffer)", DmaConstants.TRANSFER_MODE_0, 0);
 		
 		blockMove("Sprites", "oam_lo_buffer", "#(End_Sprites-Sprites)");
 		a8Bit(); // block move will put AXY16. Undo that.
@@ -36,7 +36,7 @@ public class Part5Sprites extends Ca65Base {
 		ldaSta(VMainConstants.INCREMENT_MODE_BY_1, BusRegisters.VMAIN);
 		
 		ldxStx("#$4000", BusRegisters.VMADDL);
-		dmaToVram("Spr_Tiles", "#(End_Spr_Tiles-Spr_Tiles)", DmaPxConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("Spr_Tiles", "#(End_Spr_Tiles-Spr_Tiles)", DmaConstants.TRANSFER_MODE_1, 0);
 		
 		ldaSta("#$02", BusRegisters.OBSEL);
 		setBGMode(BgModeConstants.MODE1);
@@ -97,6 +97,6 @@ public class Part5Sprites extends Ca65Base {
 	}
 	
 	public static void main(String[] args) {
-		new Part5Sprites().buildAsmFile();
+		new Part5Sprites().compileAndRun();
 	}
 }

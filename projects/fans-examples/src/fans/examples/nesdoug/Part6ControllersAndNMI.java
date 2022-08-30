@@ -2,7 +2,7 @@ package fans.examples.nesdoug;
 
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
-import fans.core.constants.DmaPxConstants;
+import fans.core.constants.DmaConstants;
 import fans.core.constants.TmOrTsConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
@@ -25,7 +25,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 		blockMove("bg_palette", "palette_buffer"); // COPY PALETTES to PAL_BUFFER
 		
 		a8Bit();
-		dmaToCgram("palette_buffer", DmaPxConstants.TRANSFER_MODE_0, 0); // DMA from PAL_BUFFER to CGRAM
+		dmaToCgram("palette_buffer", DmaConstants.TRANSFER_MODE_0, 0); // DMA from PAL_BUFFER to CGRAM
 		
 		blockMove("sprites", "oam_lo_buffer"); // COPY sprites to sprite buffer
 		a8Bit();
@@ -38,13 +38,13 @@ public class Part6ControllersAndNMI extends Ca65Base {
 		
 		// DMA from oam_lo_buffer to the OAM RAM
 		stz(BusRegisters.OAMADDL);
-		dmaToOam("oam_lo_buffer", "#(oam_buffer_end - oam_lo_buffer)", DmaPxConstants.TRANSFER_MODE_0, 0);
+		dmaToOam("oam_lo_buffer", "#(oam_buffer_end - oam_lo_buffer)", DmaConstants.TRANSFER_MODE_0, 0);
 		
 		// === DMA from sprite_tiles to VRAM ========================================================
 		ldaSta(VMainConstants.INCREMENT_MODE_BY_1, BusRegisters.VMAIN);
 		
 		ldxStx("#$4000", BusRegisters.VMADDL);
-		dmaToVram("sprite_tiles", DmaPxConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("sprite_tiles", DmaConstants.TRANSFER_MODE_1, 0);
 		// ======================================================================================
 		
 		ldaSta("#$02", BusRegisters.OBSEL);
@@ -66,7 +66,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 			jsr("wait_nmi");
 			
 			// we are now in v-blank	
-			dmaToOam("oam_lo_buffer", 544, DmaPxConstants.TRANSFER_MODE_0, 0);
+			dmaToOam("oam_lo_buffer", 544, DmaConstants.TRANSFER_MODE_0, 0);
 			//jsr("DMA_OAM"); // in init.asm
 			jsr("pad_poll");
 			axy16Bit();
@@ -216,6 +216,6 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	}
 	
 	public static void main(String[] args) {
-		new Part6ControllersAndNMI().buildAsmFile();
+		new Part6ControllersAndNMI().compileAndRun();
 	}
 }

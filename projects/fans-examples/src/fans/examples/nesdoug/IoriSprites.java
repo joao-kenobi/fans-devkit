@@ -2,7 +2,7 @@ package fans.examples.nesdoug;
 
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
-import fans.core.constants.DmaPxConstants;
+import fans.core.constants.DmaConstants;
 import fans.core.constants.TmOrTsConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
@@ -17,7 +17,7 @@ public class IoriSprites extends Ca65Base {
 		blockMove("palette", "palette_buffer", 32); // COPY PALETTES to palette_buffer
 		
 		//a8Bit();
-		dmaToCgram("palette_buffer", 32, DmaPxConstants.TRANSFER_MODE_0, 0); // DMA from palette_buffer to CGRAM
+		dmaToCgram("palette_buffer", 32, DmaConstants.TRANSFER_MODE_0, 0); // DMA from palette_buffer to CGRAM
 		//jsr("DMA_Palette"); // in init.asm
 		
 		blockMove("sprites", "oam_lo_buffer", 422); // COPY sprites to sprite buffer
@@ -40,7 +40,7 @@ public class IoriSprites extends Ca65Base {
 		ldaSta(VMainConstants.INCREMENT_MODE_BY_1, BusRegisters.VMAIN);
 		
 		ldxStx("#$4000", BusRegisters.VMADDL);
-		dmaToVram("tiles", "#(end_tiles-tiles)", DmaPxConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("tiles", "#(end_tiles-tiles)", DmaConstants.TRANSFER_MODE_1, 0);
 		
 		ldaSta("#$02", BusRegisters.OBSEL);
 		ldaSta(BgModeConstants.MODE1, BusRegisters.BGMODE);
@@ -104,6 +104,6 @@ public class IoriSprites extends Ca65Base {
 	}
 	
 	public static void main(String[] args) {
-		new IoriSprites().buildAsmFile();
+		new IoriSprites().compileAndRun();
 	}
 }

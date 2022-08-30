@@ -2,7 +2,7 @@ package fans.examples.nesdoug;
 
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
-import fans.core.constants.DmaPxConstants;
+import fans.core.constants.DmaConstants;
 import fans.core.constants.TmOrTsConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
@@ -62,7 +62,7 @@ public class TesteBackgroundsCelso extends Ca65Base {
 		//int length = 200;
 		//String length = "#$20";
 		String length = "#32";
-		String transferMode = DmaPxConstants.TRANSFER_MODE_0;
+		String transferMode = DmaConstants.TRANSFER_MODE_0;
 		int channel = 0;
 		
 		dmaToCgram(source, length, transferMode, channel);
@@ -73,7 +73,7 @@ public class TesteBackgroundsCelso extends Ca65Base {
 		
 		String source = "Tiles";
 		String length = "#(End_Tiles-Tiles)";
-		String transferMode = DmaPxConstants.TRANSFER_MODE_1;
+		String transferMode = DmaConstants.TRANSFER_MODE_1;
 		int channel = 0;
 		
 		dmaToVram(source, length, transferMode, channel);
@@ -85,13 +85,13 @@ public class TesteBackgroundsCelso extends Ca65Base {
 		String source = "Tilemap";
 		String length = "#512";
 		//String length = "#(End_Tilemap-Tilemap)";
-		String transferMode = DmaPxConstants.TRANSFER_MODE_1;
+		String transferMode = DmaConstants.TRANSFER_MODE_1;
 		int channel = 0;
 		
 		dmaToVram(source, length, transferMode, channel);
 	}
 
 	public static void main(String[] args) {
-		new TesteBackgroundsCelso().buildAsmFile();
+		new TesteBackgroundsCelso().compileAndRun();
 	}
 }
