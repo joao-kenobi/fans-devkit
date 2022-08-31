@@ -3,7 +3,7 @@ package fans.examples.nesdoug;
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
 import fans.core.constants.DmaConstants;
-import fans.core.constants.TmOrTsConstants;
+import fans.core.constants.ScreenDesignationConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
 
@@ -25,7 +25,7 @@ public class TesteBackgroundsCelso extends Ca65Base {
 		ldaSta(BgModeConstants.MODE1, BusRegisters.BGMODE);
 		stz(BusRegisters.BG12NBA);
 		setBG1TilemapAddress("#$60");
-		ldaSta(TmOrTsConstants.BG1_ON, BusRegisters.TM);
+		ldaSta(ScreenDesignationConstants.BG1_ON, BusRegisters.TM);
 		
 		initScreen();
 		foreverLoop();

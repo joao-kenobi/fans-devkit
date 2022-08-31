@@ -3,18 +3,19 @@ package fans.examples.nesdoug;
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
 import fans.core.constants.DmaConstants;
-import fans.core.constants.TmOrTsConstants;
+import fans.core.constants.ScreenDesignationConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
 
 public class Part5Sprites extends Ca65Base {
 	
 	protected void init() {
-		blockMove("BG_Palette", "palette_buffer", "#(palette_buffer_end-palette_buffer)");
+		//blockMove("BG_Palette", "palette_buffer", "#(BG_Palette_end - BG_Palette)");
+		blockMove("BG_Palette", "palette_buffer", 288);
 		
-		dmaToCgram("palette_buffer", "#(palette_buffer_end-palette_buffer)", DmaConstants.TRANSFER_MODE_0, 0);
+		dmaBufferToCgram(DmaConstants.TRANSFER_MODE_0, 0);
 		
-		blockMove("Sprites", "oam_lo_buffer", "#(End_Sprites-Sprites)");
+		blockMove("Sprites", "oam_lo_buffer", "#(Sprites_end-Sprites)");
 		a8Bit(); // block move will put AXY16. Undo that.
 		
 		
@@ -28,7 +29,8 @@ public class Part5Sprites extends Ca65Base {
 		//stz(BusRegisters.OAMADDL);
 		//dma("oam_lo_buffer", "#$"+lowByte(BusRegisters.OAMDATA), 544, DmaPxConstants.TRANSFER_MODE_0, 0);
 		
-		jsr("DMA_OAM"); // in init.asm
+		//jsr("dma_oam"); // in init.asm
+		dmaBufferToOam(DmaConstants.TRANSFER_MODE_0, DmaConstants.CHANNEL_0);
 		//dmaToOam("oam_lo_buffer", 544, DmaPxConstants.TRANSFER_MODE_0, 0);
 		
 		
@@ -36,23 +38,23 @@ public class Part5Sprites extends Ca65Base {
 		ldaSta(VMainConstants.INCREMENT_MODE_BY_1, BusRegisters.VMAIN);
 		
 		ldxStx("#$4000", BusRegisters.VMADDL);
-		dmaToVram("Spr_Tiles", "#(End_Spr_Tiles-Spr_Tiles)", DmaConstants.TRANSFER_MODE_1, 0);
+		dmaToVram("Spr_Tiles", "#(Spr_Tiles_end - Spr_Tiles)", DmaConstants.TRANSFER_MODE_1, DmaConstants.CHANNEL_0);
 		
 		ldaSta("#$02", BusRegisters.OBSEL);
 		setBGMode(BgModeConstants.MODE1);
-		ldaSta(TmOrTsConstants.SPRITES_ON, BusRegisters.TM);
+		enableMainScreenDesignation(ScreenDesignationConstants.SPRITES_ON);
 		
 		initScreen();
 		
 		label("Infinite_Loop", () -> {
 			a8Bit();
 			xy16Bit();
-			jsr("Wait_NMI");
+			jsr("wait_nmi");
 			jmp("Infinite_Loop");
 		});
 		
 		
-		label("Wait_NMI", () -> {
+		label("wait_nmi", () -> {
 			rawAsm(".a8");
 			rawAsm(".i16");
 			
@@ -77,23 +79,23 @@ public class Part5Sprites extends Ca65Base {
 		
 		String gfxPath = "includes/graphics/nesdoug/part5";
 		
-		label("Sprites", () -> {
+		labelWithEnd("Sprites", () -> {
 			// 4 bytes per sprite = x, y, tile #, attribute
 			rawAsm(".byte $80, $80, $00, SPR_PRIOR_2");	
 			rawAsm(".byte $80, $90, $20, SPR_PRIOR_2");	
 			rawAsm(".byte $7c, $90, $22, SPR_PRIOR_2");	
-		}, "End_Sprites");
+		});
 		
 		segment("RODATA1");
 		
-		label("BG_Palette", () -> {
+		labelWithEnd("BG_Palette", () -> {
 			incbin(gfxPath+"/default.pal"); // 256 bytes
 			incbin(gfxPath+"/sprite.pal"); // is 32 bytes, 256+32=288	
 		});
 		
-		label("Spr_Tiles", () -> {
+		labelWithEnd("Spr_Tiles", () -> {
 			incbin(gfxPath+"/sprite.chr");
-		}, "End_Spr_Tiles");
+		});
 	}
 	
 	public static void main(String[] args) {

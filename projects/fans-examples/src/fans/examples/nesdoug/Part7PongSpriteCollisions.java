@@ -4,7 +4,7 @@ import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
 import fans.core.constants.DmaConstants;
 import fans.core.constants.NmiTIMenConstants;
-import fans.core.constants.TmOrTsConstants;
+import fans.core.constants.ScreenDesignationConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
 import fans.core.enums.CpuRegisters;
@@ -110,7 +110,7 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 		ldaSta("#$70", BusRegisters.BG3SC);
 		
 		ldaSta("#2", BusRegisters.OBSEL);
-		ldaSta(TmOrTsConstants.ALL_ON_SCREEN, BusRegisters.TM);
+		ldaSta(ScreenDesignationConstants.ALL_ON_SCREEN, BusRegisters.TM);
 		ldaSta(NmiTIMenConstants.ENABLE_NMI_AND_AUTO_JOYPAD_READ, CpuRegisters.NMITIMEN);
 		initScreen();
 		

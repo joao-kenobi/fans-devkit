@@ -3,7 +3,7 @@ package fans.examples.nesdoug;
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
 import fans.core.constants.DmaConstants;
-import fans.core.constants.TmOrTsConstants;
+import fans.core.constants.ScreenDesignationConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
 
@@ -25,7 +25,7 @@ public class Part3Backgrounds extends Ca65Base {
 		setBGMode(BgModeConstants.MODE1);
 		setBG1And2CharacterAddress("#$00");
 		setBG1TilemapAddress("#$60");
-		ldaSta(TmOrTsConstants.BG1_ON, BusRegisters.TM); // $01 = only bg 1 is active
+		enableMainScreenDesignation(ScreenDesignationConstants.BG1_ON);
 		
 		initScreen();
 		foreverLoop();

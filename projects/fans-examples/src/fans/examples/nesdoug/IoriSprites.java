@@ -3,7 +3,7 @@ package fans.examples.nesdoug;
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
 import fans.core.constants.DmaConstants;
-import fans.core.constants.TmOrTsConstants;
+import fans.core.constants.ScreenDesignationConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
 
@@ -44,7 +44,7 @@ public class IoriSprites extends Ca65Base {
 		
 		ldaSta("#$02", BusRegisters.OBSEL);
 		ldaSta(BgModeConstants.MODE1, BusRegisters.BGMODE);
-		ldaSta(TmOrTsConstants.SPRITES_ON, BusRegisters.TM);
+		ldaSta(ScreenDesignationConstants.SPRITES_ON, BusRegisters.TM);
 		
 		initScreen();
 		

@@ -3,7 +3,7 @@ package fans.examples.nesdoug;
 import fans.core.Ca65Base;
 import fans.core.constants.BgModeConstants;
 import fans.core.constants.DmaConstants;
-import fans.core.constants.TmOrTsConstants;
+import fans.core.constants.ScreenDesignationConstants;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
 
@@ -33,7 +33,7 @@ public class Part4LayersOrPriority extends Ca65Base {
 		setBG1TilemapAddress("#$60");
 		setBG2TilemapAddress("#$68");
 		setBG3TilemapAddress("#$70");
-		enableMainScreenDesignation(TmOrTsConstants.ALL_ON_SCREEN);
+		enableMainScreenDesignation(ScreenDesignationConstants.ALL_ON_SCREEN);
 		
 		initScreen();
 		foreverLoop();
