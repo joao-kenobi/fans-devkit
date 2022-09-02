@@ -15,6 +15,20 @@
       <Condition />
       <MemoryType>PrgRom</MemoryType>
     </Breakpoint>
+    <Breakpoint>
+      <BreakOnRead>true</BreakOnRead>
+      <BreakOnWrite>true</BreakOnWrite>
+      <BreakOnExec>true</BreakOnExec>
+      <Enabled>true</Enabled>
+      <MarkEvent>false</MarkEvent>
+      <Address>8449</Address>
+      <StartAddress>8449</StartAddress>
+      <EndAddress>8449</EndAddress>
+      <CpuType>Cpu</CpuType>
+      <AddressType>SingleAddress</AddressType>
+      <Condition />
+      <MemoryType>CpuMemory</MemoryType>
+    </Breakpoint>
   </Breakpoints>
   <WatchValues />
   <SpcWatchValues />
@@ -1756,7 +1770,7 @@
       <Address>8421864</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label>main</Label>
-      <Comment> A 8 BIT MODE</Comment>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1764,7 +1778,7 @@
       <Address>8421821</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label>clear_vram</Label>
-      <Comment />
+      <Comment>DAS0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1772,7 +1786,7 @@
       <Address>8421755</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label>dma_oam</Label>
-      <Comment />
+      <Comment>WMADDH</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1780,7 +1794,7 @@
       <Address>8421689</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label>clear_oam</Label>
-      <Comment />
+      <Comment>WMADDL</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1788,7 +1802,7 @@
       <Address>8421651</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label>dma_palette</Label>
-      <Comment />
+      <Comment>CGADD</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1796,7 +1810,7 @@
       <Address>8421607</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label>clear_palette</Label>
-      <Comment />
+      <Comment> X,Y 16 BIT MODE</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1804,7 +1818,7 @@
       <Address>8421537</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label>clear_wram</Label>
-      <Comment> A 16 BIT MODE</Comment>
+      <Comment> X,Y 8 BIT MODE</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1844,7 +1858,7 @@
       <Address>8421706</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>DMAP0</Comment>
+      <Comment>A1B0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1852,15 +1866,15 @@
       <Address>8421712</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>A1T0L</Comment>
+      <Comment>DAS0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421756</Address>
+      <Address>8421878</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment> A 8 BIT MODE</Comment>
+      <Comment> A,X,Y 16 BIT MODE</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1868,23 +1882,15 @@
       <Address>8454103</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment> ROM size (2^# in kB)</Comment>
+      <Comment> ROM size (32 Mbit / 4 MBytes)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421783</Address>
+      <Address>8421754</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>A1B0</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421811</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>DAS0L</Comment>
+      <Comment> X,Y 16 BIT MODE</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1892,15 +1898,7 @@
       <Address>8421734</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>A1T0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421750</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>MDMAEN</Comment>
+      <Comment>DAS0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1913,7 +1911,7 @@
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421851</Address>
+      <Address>8421559</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
       <Comment>A1B0</Comment>
@@ -1921,50 +1919,10 @@
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421873</Address>
+      <Address>8421612</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment> TESTE COMENTARIO</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421598</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>MEMSEL</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421564</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>DAS0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421745</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>DAS0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421652</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment> A 8 BIT MODE</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421697</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>WMADDL</Comment>
+      <Comment>WMADDH</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1980,7 +1938,7 @@
       <Address>8421828</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>VMAIN</Comment>
+      <Comment>A1T0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1988,23 +1946,7 @@
       <Address>8421824</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment> X,Y 16 BIT MODE</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421766</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>WMADDH</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421556</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>A1T0L</Comment>
+      <Comment>DMAP0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2033,10 +1975,18 @@
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421723</Address>
+      <Address>8421775</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
       <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421723</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2093,7 +2043,7 @@ cop native **</Comment>
       <Address>8421561</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>A1B0</Comment>
+      <Comment>DAS0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2106,18 +2056,18 @@ cop native **</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421654</Address>
+      <Address>8421797</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment> X,Y 16 BIT MODE</Comment>
+      <Comment>DAS0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421673</Address>
+      <Address>8421654</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>A1B0</Comment>
+      <Comment>DMAP0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2133,7 +2083,7 @@ cop native **</Comment>
       <Address>8421700</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>WMADDH</Comment>
+      <Comment>A1T0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2141,84 +2091,12 @@ cop native **</Comment>
       <Address>8421739</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>A1B0</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421758</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment> X,Y 16 BIT MODE</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421875</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>CGDATA</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421608</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment> A 8 BIT MODE</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421728</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
       <Comment>MDMAEN</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421763</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>WMADDL</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421816</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>MDMAEN</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421635</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>A1B0</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421641</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>DAS0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421610</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment> X,Y 16 BIT MODE</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421601</Address>
+      <Address>8421596</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
       <Comment> A,X,Y 16 BIT MODE</Comment>
@@ -2226,31 +2104,47 @@ cop native **</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421594</Address>
+      <Address>8421758</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment> A 8 BIT MODE</Comment>
+      <Comment>DMAP0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421656</Address>
+      <Address>8421728</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>CGADD</Comment>
+      <Comment>A1B0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421866</Address>
+      <Address>8421763</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment> X,Y 16 BIT MODE</Comment>
+      <Comment>A1T0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421615</Address>
+      <Address>8421635</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421641</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421610</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
       <Comment>WMADDL</Comment>
@@ -2258,10 +2152,42 @@ cop native **</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
+      <Address>8421694</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DMAP0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421665</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1B0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421594</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MEMSEL</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421676</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
       <Address>8421690</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment> A 8 BIT MODE</Comment>
+      <Comment>WMADDH</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2269,15 +2195,7 @@ cop native **</Comment>
       <Address>8421575</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment> A 8 BIT MODE</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421846</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>A1T0L</Comment>
+      <Comment> X,Y 16 BIT MODE</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2293,47 +2211,39 @@ cop native **</Comment>
       <Address>8421618</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>WMADDH</Comment>
+      <Comment>DMAP0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421544</Address>
+      <Address>8421547</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>WMADDM</Comment>
+      <Comment>DMAP0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421569</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>MDMAEN</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421805</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>A1B0</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421646</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>MDMAEN</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421800</Address>
+      <Address>8421786</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
       <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421803</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421567</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2349,23 +2259,7 @@ cop native **</Comment>
       <Address>8421630</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>A1T0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421778</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>A1T0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421692</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment> X,Y 16 BIT MODE</Comment>
+      <Comment>A1B0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2378,18 +2272,10 @@ cop native **</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421662</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>DMAP0</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
       <Address>8421624</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>DMAP0</Comment>
+      <Comment>A1T0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2411,22 +2297,6 @@ cop emulation **</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421822</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment> A 8 BIT MODE</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421856</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>MDMAEN</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
       <Address>8454134</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
@@ -2435,7 +2305,7 @@ cop emulation **</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421717</Address>
+      <Address>8421792</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
       <Comment>A1B0</Comment>
@@ -2443,34 +2313,34 @@ cop emulation **</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
+      <Address>8421572</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment> A 8 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421553</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421717</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>MDMAEN</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
       <Address>8421834</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>DAS0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421577</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment> X,Y 16 BIT MODE</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421883</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>INIDISP</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421870</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>CGADD</Comment>
+      <Comment>A1B0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2483,7 +2353,7 @@ cop emulation **</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421794</Address>
+      <Address>8421781</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
       <Comment>MDMAEN</Comment>
@@ -2491,26 +2361,10 @@ cop emulation **</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421679</Address>
+      <Address>8421769</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>DAS0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421789</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>DAS0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421684</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>MDMAEN</Comment>
+      <Comment>A1B0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2548,10 +2402,18 @@ rom name 21 chars</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421550</Address>
+      <Address>8421819</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>DMAP0</Comment>
+      <Comment> X,Y 16 BIT MODE</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421659</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>A1T0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2559,7 +2421,7 @@ rom name 21 chars</Comment>
       <Address>8421840</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>DMAP0</Comment>
+      <Comment>MDMAEN</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -2572,31 +2434,7 @@ rom name 21 chars</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421772</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>DMAP0</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
       <Address>8421539</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment> X,Y 8 BIT MODE</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421668</Address>
-      <MemoryType>SpcRam</MemoryType>
-      <Label />
-      <Comment>A1T0L</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>8421541</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
       <Comment>WMADDL</Comment>
@@ -2604,10 +2442,18 @@ rom name 21 chars</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>8421831</Address>
+      <Address>8421541</Address>
       <MemoryType>SpcRam</MemoryType>
       <Label />
-      <Comment>VMADDL</Comment>
+      <Comment>WMADDM</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8421671</Address>
+      <MemoryType>SpcRam</MemoryType>
+      <Label />
+      <Comment>DAS0L</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

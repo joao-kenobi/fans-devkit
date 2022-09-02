@@ -2,7 +2,7 @@
 <Configuration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Version>0.4.0</Version>
   <Video>
-    <VideoScale>1</VideoScale>
+    <VideoScale>2</VideoScale>
     <CustomAspectRatio>1</CustomAspectRatio>
     <VideoFilter>None</VideoFilter>
     <AspectRatio>NoStretching</AspectRatio>
@@ -565,7 +565,7 @@
     <PpuExtraScanlinesBeforeNmi>0</PpuExtraScanlinesBeforeNmi>
     <PpuExtraScanlinesAfterNmi>0</PpuExtraScanlinesAfterNmi>
     <GsuClockSpeed>100</GsuClockSpeed>
-    <RamPowerOnState>Random</RamPowerOnState>
+    <RamPowerOnState>AllZeros</RamPowerOnState>
     <BsxCustomDate>-1</BsxCustomDate>
   </Emulation>
   <Preferences>
@@ -1098,7 +1098,7 @@
       <LabelledByteColor ColorString="LightPink" />
       <CodeByteColor ColorString="DarkSeaGreen" />
       <DataByteColor ColorString="LightSteelBlue" />
-      <MemoryType>VideoRam</MemoryType>
+      <MemoryType>SpriteRam</MemoryType>
       <WindowSize>
         <Width>703</Width>
         <Height>1057</Height>
@@ -1239,13 +1239,13 @@
         <Height>1057</Height>
       </WindowSize>
       <WindowLocation>
-        <X>1146</X>
-        <Y>2</Y>
+        <X>902</X>
+        <Y>31</Y>
       </WindowLocation>
       <ImageScale>3</ImageScale>
       <ShowTileGrid>false</ShowTileGrid>
       <Source>VideoRam</Source>
-      <Format>Bpp8</Format>
+      <Format>Bpp4</Format>
       <Layout>Normal</Layout>
       <ColumnCount>16</ColumnCount>
       <Address>0</Address>
@@ -1272,16 +1272,16 @@
     <SpriteViewer>
       <WindowSize>
         <Width>858</Width>
-        <Height>579</Height>
+        <Height>1057</Height>
       </WindowSize>
       <WindowLocation>
         <X>937</X>
-        <Y>267</Y>
+        <Y>0</Y>
       </WindowLocation>
       <ImageScale>2</ImageScale>
       <SplitterDistance>514</SplitterDistance>
       <AutoRefresh>true</AutoRefresh>
-      <HideOffscreenSprites>false</HideOffscreenSprites>
+      <HideOffscreenSprites>true</HideOffscreenSprites>
       <RefreshScanline>240</RefreshScanline>
       <RefreshCycle>0</RefreshCycle>
       <AutoRefreshSpeed>Low</AutoRefreshSpeed>
@@ -1353,7 +1353,7 @@
       </RecentItem>
       <RecentItem>
         <RomFile>
-          <Path>C:\ambiente_desenvolvimento\test\snes-framework\snes-framework\SnesFramework\framework\assemblers\ca65\..\..\..\home\output\rom.sfc</Path>
+          <Path>C:\ambiente_desenvolvimento\test\snes-lab\snes-lab\roms\mk3.smc</Path>
           <InnerFile />
           <InnerFileIndex>0</InnerFileIndex>
         </RomFile>
@@ -1361,7 +1361,15 @@
       </RecentItem>
       <RecentItem>
         <RomFile>
-          <Path>C:\ambiente_desenvolvimento\test\snes-lab\snes-lab\roms\mk3.smc</Path>
+          <Path>C:\ambiente_desenvolvimento\test\snes-lab\snes-lab\ambiente_wesleyac\sources\part6\out\main.sfc</Path>
+          <InnerFile />
+          <InnerFileIndex>0</InnerFileIndex>
+        </RomFile>
+        <PatchFile xsi:nil="true" />
+      </RecentItem>
+      <RecentItem>
+        <RomFile>
+          <Path>C:\ambiente_desenvolvimento\test\snes-framework\snes-framework\SnesFramework\framework\assemblers\ca65\..\..\..\home\output\rom.sfc</Path>
           <InnerFile />
           <InnerFileIndex>0</InnerFileIndex>
         </RomFile>
@@ -1415,14 +1423,6 @@
         </RomFile>
         <PatchFile xsi:nil="true" />
       </RecentItem>
-      <RecentItem>
-        <RomFile>
-          <Path>C:\ambiente_desenvolvimento\test\snes-lab\snes-lab\ambiente_wesleyac\sources\part1\src\..\..\..\..\roms\rom.sfc</Path>
-          <InnerFile />
-          <InnerFileIndex>0</InnerFileIndex>
-        </RomFile>
-        <PatchFile xsi:nil="true" />
-      </RecentItem>
     </Items>
   </RecentFiles>
   <AviRecord>
@@ -1453,12 +1453,12 @@
     <ServerPassword />
   </Netplay>
   <WindowLocation>
-    <X>520</X>
-    <Y>538</Y>
+    <X>936</X>
+    <Y>394</Y>
   </WindowLocation>
   <WindowSize>
-    <Width>272</Width>
-    <Height>302</Height>
+    <Width>528</Width>
+    <Height>541</Height>
   </WindowSize>
   <NeedInputReinit2>false</NeedInputReinit2>
   <DefaultKeyMappings>ArrowKeys</DefaultKeyMappings>

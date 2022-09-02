@@ -78,7 +78,6 @@ lda #$0000
 tcd
 
 clear_wram:
-rep #$20  ; A 16 BIT MODE
 sep #$10 ; X,Y 8 BIT MODE
 stz $2181 ;WMADDL
 stz $2182 ;WMADDM
@@ -99,7 +98,6 @@ jsr dma_palette
 jsr clear_oam
 jsr dma_oam
 jsr clear_vram
-sep #$20 ; A 8 BIT MODE
 lda #1
 sta $420D ;MEMSEL
 rep #$30 ; A,X,Y 16 BIT MODE
@@ -127,7 +125,6 @@ rts
 
 dma_palette:
 php
-sep #$20 ; A 8 BIT MODE
 rep #$10 ; X,Y 16 BIT MODE
 stz $2121 ;CGADD
 ldx #$2200
@@ -145,7 +142,6 @@ rts
 
 clear_oam:
 php
-sep #$20 ; A 8 BIT MODE
 rep #$10 ; X,Y 16 BIT MODE
 ldx #.loword(oam_lo_buffer)
 stx $2181 ;WMADDL
@@ -173,7 +169,6 @@ rts
 
 dma_oam:
 php
-sep #$20 ; A 8 BIT MODE
 rep #$10 ; X,Y 16 BIT MODE
 ldx #.loword(oam_lo_buffer)
 stx $2181 ;WMADDL
@@ -201,7 +196,6 @@ rts
 
 clear_vram:
 php
-sep #$20 ; A 8 BIT MODE
 rep #$10 ; X,Y 16 BIT MODE
 lda #$80
 sta $2115 ;VMAIN

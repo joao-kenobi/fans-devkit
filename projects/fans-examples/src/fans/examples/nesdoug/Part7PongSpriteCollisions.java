@@ -14,8 +14,7 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 
 	protected void before() {
 		
-		segment("ZEROPAGE", () -> {
-			rawAsm("in_nmi: .res 2");
+		zeroPageSegment(() -> {
 			
 			for (int i = 1; i <= 6; i++) {				
 				rawAsm("temp"+i+": .res 2");
@@ -29,7 +28,7 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 			rawAsm("spr_a: .res 1 ; attributes");
 			rawAsm("spr_sz:	.res 1 ; sprite size, 0 or 2");
 			rawAsm("spr_h: .res 1 ; high 2 bits");
-			rawAsm("spr_x2:	.res 2 ; for meta sprite code");
+			rawAsm("spr_x2:	.res 2 ");  // for meta sprite code
 			
 			// for collision code
 			rawAsm("obj1x: .res 1");
@@ -59,22 +58,12 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 			rawAsm("paddle2_x: .res 1");
 			rawAsm("paddle2_y: .res 1");
 			
-			rawAsm("points_L: .res 1");
-			rawAsm("points_R: .res 1");
+			rawAsm("points_l: .res 1");
+			rawAsm("points_r: .res 1");
 			
 			rawAsm("game_pause: .res 1");
 			rawAsm("frame_count: .res 1");
 		});
-		
-		segment("BSS", () -> {			
-			rawAsm("palette_buffer: .res 512");
-			rawAsm("palette_buffer_end:");
-
-			rawAsm("oam_lo_buffer: .res 512 ;low table ");
-			rawAsm("oam_hi_buffer: .res 32 ;high table ");
-			rawAsm("oam_buffer_end:");
-		});
-
 	}
 	
 	protected void init() {
@@ -181,7 +170,7 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 			clc();
 			adcSta("#$7000", BusRegisters.VMADDL); // layer 3 map
 			a8Bit();
-			lda("points_L");
+			lda("points_l");
 			clc();
 			adc("#$10");
 			a16Bit();
@@ -189,34 +178,31 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 			clc();
 			adcSta("#$0010", BusRegisters.VMDATAL);
 				
-//			;print right score
-//				A16
-//				XY8
-//				ldx #19
-//				ldy #1
-//				jsr Map_Offset ; returns a16 = vram address offset
-//				clc
-//				adc #$7000 ;layer 3 map
-//				sta VMADDL ;$2116
-//				A8
-//				lda points_R
-//				clc
-//				adc #$10
-//				A16
-//				and #$00ff ;blank the upper byte, = palette 0
-//				sta VMDATAL
-//				clc
-//				adc #$0010
-//				sta VMDATAL
-//				
-//				plp
-//				rts
+			// print right score
+			a16Bit();
+			xy8Bit();
+			ldx("#19");
+			ldy("#1");
+			jsr("map_offset"); // returns a16 = vram address offset
+			clc();
+			adcSta("#$7000", BusRegisters.VMADDL); //layer 3 map
+			
+			a8Bit();
+			lda("points_r");
+			clc();
+			adc("#$10");
+			a16Bit();
+			andSta("#$00ff", BusRegisters.VMDATAL); // blank the upper byte, = palette 0
+			clc();
+			adcSta("#$0010", BusRegisters.VMDATAL);
+			plp();
+			rts();
 		});
 	}
 
 	private void ok() {
 		label("@ok", () -> {
-			lda("points_R");
+			lda("points_r");
 			cmp("#9");
 			bcc("@ok2");
 			jsr("Reset_Score");
@@ -329,7 +315,7 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 			a8Bit();
 			ldaCmp("ball_x", "#$4");
 			bcs("@above4");
-			inc("points_R");
+			inc("points_r");
 			stz("ball_active");
 		});
 	}
@@ -339,14 +325,14 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 			// check lose right
 			ldaCmp("ball_x", "#$fb");
 			bcc("@belowfc");
-			inc("points_L");
+			inc("points_l");
 			stz("ball_active");
 		});
 	}
 
 	private void ballNotActive() {
 		label("@ball_not_active", () -> {
-			stz(new String[] {"points_L", "points_R"});
+			stz(new String[] {"points_l", "points_r"});
 			rts();
 		});
 	}
@@ -461,7 +447,7 @@ public class Part7PongSpriteCollisions extends Ca65Base {
 				beq("@skip_start");
 				
 				a8Bit();
-				lda("points_L");
+				lda("points_l");
 				cmp("#9");
 				bcc("@ok");
 				jsr("Reset_Score");

@@ -10,12 +10,12 @@ import fans.core.enums.BusRegisters;
 public class Part5Sprites extends Ca65Base {
 	
 	protected void init() {
-		//blockMove("BG_Palette", "palette_buffer", "#(BG_Palette_end - BG_Palette)");
-		blockMove("BG_Palette", "palette_buffer", 288);
+		//blockMove("bg_palette", "palette_buffer", "#(bg_palette_end - bg_palette)");
+		blockMove("bg_palette", "palette_buffer", 288);
 		
 		dmaBufferToCgram(DmaConstants.TRANSFER_MODE_0, 0);
 		
-		blockMove("Sprites", "oam_lo_buffer", "#(Sprites_end-Sprites)");
+		blockMove("sprites", "oam_lo_buffer");
 		a8Bit(); // block move will put AXY16. Undo that.
 		
 		
@@ -23,6 +23,7 @@ public class Part5Sprites extends Ca65Base {
 		//#$6A = 01 101010 = flip all the size bits to large
 		//			will give us 16x16 tiles
 		//			leave the 4th sprite small and in negative x
+		//ldaSta("#$6A", "oam_hi_buffer");
 		ldaSta("#$6A", "oam_hi_buffer");
 		
 		// DMA from oam_lo_buffer to the OAM RAM
@@ -40,7 +41,15 @@ public class Part5Sprites extends Ca65Base {
 		ldxStx("#$4000", BusRegisters.VMADDL);
 		dmaToVram("Spr_Tiles", "#(Spr_Tiles_end - Spr_Tiles)", DmaConstants.TRANSFER_MODE_1, DmaConstants.CHANNEL_0);
 		
-		ldaSta("#$02", BusRegisters.OBSEL);
+		
+		// $2101 sssnn-bb
+		// sss = sprite sizes, 000 = 8x8 and 16x16 sprites
+		// nn = displacement for the 2nd set of sprite tiles, 00 = normal
+		// bb = where are the sprite tiles, in steps of $2000
+		// that upper bit is useless, as usual, so I marked it with a dash -
+		//setObjectAndCharacterSize(SpriteConstantes.SIZE_8x8_OR_16x16);
+		setObjectAndCharacterSize("#2");
+		//setObjectAndCharacterSize("#%00000010");
 		setBGMode(BgModeConstants.MODE1);
 		enableMainScreenDesignation(ScreenDesignationConstants.SPRITES_ON);
 		
@@ -79,7 +88,7 @@ public class Part5Sprites extends Ca65Base {
 		
 		String gfxPath = "includes/graphics/nesdoug/part5";
 		
-		labelWithEnd("Sprites", () -> {
+		labelWithEnd("sprites", () -> {
 			// 4 bytes per sprite = x, y, tile #, attribute
 			rawAsm(".byte $80, $80, $00, SPR_PRIOR_2");	
 			rawAsm(".byte $80, $90, $20, SPR_PRIOR_2");	
@@ -88,7 +97,7 @@ public class Part5Sprites extends Ca65Base {
 		
 		segment("RODATA1");
 		
-		labelWithEnd("BG_Palette", () -> {
+		labelWithEnd("bg_palette", () -> {
 			incbin(gfxPath+"/default.pal"); // 256 bytes
 			incbin(gfxPath+"/sprite.pal"); // is 32 bytes, 256+32=288	
 		});

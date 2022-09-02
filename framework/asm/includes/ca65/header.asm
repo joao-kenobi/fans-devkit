@@ -6,7 +6,7 @@
 .byte "EXAMPLE 5            " ;rom name 21 chars
 .byte $30  ;LoROM FastROM
 .byte $00  ; extra chips in cartridge, 00: no extra RAM; 02: RAM with battery
-.byte $08  ; ROM size (2^# in kB)
+.byte $0C  ; ROM size (32 Mbit / 4 MBytes)
 .byte $00  ; backup RAM size
 .byte $01  ; US
 .byte $33  ; publisher id

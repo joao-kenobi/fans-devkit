@@ -28,7 +28,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	private static final String[] VERTICAL_VALUES = {OAM_LO_BUFFER_VARIABLE+"+1", OAM_LO_BUFFER_VARIABLE+"+5", OAM_LO_BUFFER_VARIABLE+"+9"};
 	
 	protected void before() {
-		segmentZeroPage(() -> {
+		zeroPageSegment(() -> {
 			variable(TEMP1_VARIABLE, 2);
 			variable(PAD1_VARIABLE, 2);
 			variable(PAD1_NEW_VARIABLE, 2);
@@ -140,8 +140,8 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	
 	private void waitNMI() {
 		label("wait_nmi", () -> {
-			rawAsm(".a8");
-			rawAsm(".i16");
+			_a8();
+			_i16();
 			lda(IN_NMI_VARIABLE);
 			
 			checkAgain();
@@ -159,8 +159,8 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	
 	private void padPoll() {
 		label("pad_poll", () -> {			
-			rawAsm(".a8");
-			rawAsm(".i16");
+			_a8();
+			_i16();
 			// reads both controllers to pad1, pad1_new, pad2, pad2_new
 			// auto controller reads done, call this once per main loop
 			// copies the current controller reads to these variables
@@ -196,14 +196,14 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	}
 
 	private void importGraphics() {
-		rawAsm("SPR_PRIOR_2 = $20");
+		final String SPR_PRIOR_2 = "$20";
 		
 		
 		labelWithEnd(SPRITES_LABEL, () -> {
 			// 4 bytes per sprite = x, y, tile #, attribute
-			rawAsm(".byte $80, $80, $00, SPR_PRIOR_2");	
-			rawAsm(".byte $80, $90, $20, SPR_PRIOR_2");	
-			rawAsm(".byte $7c, $90, $22, SPR_PRIOR_2");	
+			rawAsm(".byte $80, $80, $00, "+SPR_PRIOR_2);	
+			rawAsm(".byte $80, $90, $20, "+SPR_PRIOR_2);	
+			rawAsm(".byte $7c, $90, $22, "+SPR_PRIOR_2);	
 		});
 		
 		segment("RODATA1", () -> {			
