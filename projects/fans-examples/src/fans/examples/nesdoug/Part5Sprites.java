@@ -70,7 +70,7 @@ public class Part5Sprites extends Ca65Base {
 			lda("in_nmi");
 			
 			label("@check_again", () -> {
-				rawAsm("WAI");
+				wai();
 				cmp("in_nmi");
 				beq("@check_again");
 				rts();

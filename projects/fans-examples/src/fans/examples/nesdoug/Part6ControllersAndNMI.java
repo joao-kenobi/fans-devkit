@@ -150,7 +150,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 	
 	private void checkAgain() {
 		label("@check_again", () -> {
-			rawAsm("WAI");
+			wai();
 			cmp(IN_NMI_VARIABLE);
 			beq("@check_again");
 			rts();

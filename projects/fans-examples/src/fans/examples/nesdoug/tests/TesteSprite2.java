@@ -8,7 +8,7 @@ import fans.core.constants.SpriteConstantes;
 import fans.core.constants.VMainConstants;
 import fans.core.enums.BusRegisters;
 
-public class TesteSprite extends Ca65Base {
+public class TesteSprite2 extends Ca65Base {
 	
 	protected void init() {
 		//blockMove("bg_palette", "palette_buffer", "#(bg_palette_end - bg_palette)");
@@ -133,7 +133,7 @@ public class TesteSprite extends Ca65Base {
 	}
 
 	private void importGraphics() {
-		String gfxPath = "includes/graphics/teste/sprite/iori";
+		String gfxPath = "includes/graphics/teste/sprite/iori_2";
 		
 		rawAsm("sprite_priority = $20");
 //		
@@ -141,19 +141,8 @@ public class TesteSprite extends Ca65Base {
 			//rawAsm(".byte $28, $38, $10, $20, SPR_PRIOR_2");
 			
 			
-			int x = 2+10;
-			int y = 3+10;
-			int tileNumber = 3;
-			
-			
-			for (int i = 0; i < 5; i++) {				
-				setSpriteProperties(x, y, tileNumber);
-				x += 8;
-				tileNumber++;
-			}
-			
 			// 4 bytes per sprite = x, y, tile #, attribute
-			//incbin(gfxPath+"/iori_metasprite.bin");
+			incbin(gfxPath+"/image.map");
 //			rawAsm(".byte $02, $03, $03, sprite_priority");
 //			rawAsm(".byte $0A, $03, $04, sprite_priority");
 //			rawAsm(".byte $12, $03, $05, sprite_priority");
@@ -199,24 +188,15 @@ public class TesteSprite extends Ca65Base {
 		
 		labelWithEnd("bg_palette", () -> {
 			incbin(gfxPath+"/default.palette");
-			incbin(gfxPath+"/iori.palette");	
+			incbin(gfxPath+"/image.palette");	
 		});
 		
 		labelWithEnd("Spr_Tiles", () -> {
-			incbin(gfxPath+"/iori.sprite");
+			incbin(gfxPath+"/image.tiles");
 		});
 	}
 	
-	
-	private void setSpriteProperties(int x, int y, int tileNumber) {
-		rawAsm(".byte $"+toHex(x)+", $"+toHex(y)+", $"+toHex(tileNumber)+", sprite_priority");
-	}
-	
-	private String toHex(int value) {
-		return Integer.toHexString(value).toUpperCase();
-	}
-	
 	public static void main(String[] args) {
-		new TesteSprite().compileAndRun();
+		new TesteSprite2().compileAndRun();
 	}
 }
