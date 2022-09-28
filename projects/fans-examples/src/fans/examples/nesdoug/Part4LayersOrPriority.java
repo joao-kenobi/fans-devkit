@@ -44,31 +44,31 @@ public class Part4LayersOrPriority extends Ca65Base {
 		segment("RODATA1");
 		
 		
-		labelWithEnd(BG_PALETTE_LABEL, () -> {
+		smartLabel(BG_PALETTE_LABEL, () -> {
 			incbin(GFXPATH+"/allBG.pal"); // 256 bytes
 		});
 		
-		labelWithEnd(TILES_LABEL, () -> {
+		smartLabel(TILES_LABEL, () -> {
 			// 4bpp tileset
 			incbin(GFXPATH+"/moon.chr");
 		});
 		
-		labelWithEnd(TILES2_LABEL, () -> {
+		smartLabel(TILES2_LABEL, () -> {
 			// 4bpp tileset
 			incbin(GFXPATH+"/spacebar.chr");
 		});
 		
-		labelWithEnd(TILEMAP_LABEL, () -> {
+		smartLabel(TILEMAP_LABEL, () -> {
 			// $700 bytes
 			incbin(GFXPATH+"/moon.map");
 		});
 		
-		labelWithEnd(TILEMAP2_LABEL, () -> {
+		smartLabel(TILEMAP2_LABEL, () -> {
 			// $700 bytes
 			incbin(GFXPATH+"/bluebar.map");
 		});
 		
-		labelWithEnd(TILEMAP3_LABEL, () -> {
+		smartLabel(TILEMAP3_LABEL, () -> {
 			// $700 bytes
 			incbin(GFXPATH+"/spacebar.map");
 		});

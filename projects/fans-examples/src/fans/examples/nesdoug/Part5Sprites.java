@@ -24,7 +24,11 @@ public class Part5Sprites extends Ca65Base {
 		//			will give us 16x16 tiles
 		//			leave the 4th sprite small and in negative x
 		//ldaSta("#$6A", "oam_hi_buffer");
-		ldaSta("#$6A", "oam_hi_buffer");
+		
+//		sx (s upper bit, x lower bit)
+//		s= size (small or large)
+//		x = 9th bit for x
+		ldaSta("#%01101010", "oam_hi_buffer");
 		
 		// DMA from oam_lo_buffer to the OAM RAM
 		//stz(BusRegisters.OAMADDL);
@@ -88,7 +92,7 @@ public class Part5Sprites extends Ca65Base {
 		
 		String gfxPath = "includes/graphics/nesdoug/part5";
 		
-		labelWithEnd("sprites", () -> {
+		smartLabel("sprites", () -> {
 			// 4 bytes per sprite = x, y, tile #, attribute
 			rawAsm(".byte $80, $80, $00, SPR_PRIOR_2");	
 			rawAsm(".byte $80, $90, $20, SPR_PRIOR_2");	
@@ -97,12 +101,12 @@ public class Part5Sprites extends Ca65Base {
 		
 		segment("RODATA1");
 		
-		labelWithEnd("bg_palette", () -> {
+		smartLabel("bg_palette", () -> {
 			incbin(gfxPath+"/default.pal"); // 256 bytes
 			incbin(gfxPath+"/sprite.pal"); // is 32 bytes, 256+32=288	
 		});
 		
-		labelWithEnd("Spr_Tiles", () -> {
+		smartLabel("Spr_Tiles", () -> {
 			incbin(gfxPath+"/sprite.chr");
 		});
 	}

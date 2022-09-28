@@ -1098,14 +1098,14 @@
       <LabelledByteColor ColorString="LightPink" />
       <CodeByteColor ColorString="DarkSeaGreen" />
       <DataByteColor ColorString="LightSteelBlue" />
-      <MemoryType>SpriteRam</MemoryType>
+      <MemoryType>VideoRam</MemoryType>
       <WindowSize>
         <Width>703</Width>
         <Height>1057</Height>
       </WindowSize>
       <WindowLocation>
-        <X>43</X>
-        <Y>0</Y>
+        <X>1070</X>
+        <Y>159</Y>
       </WindowLocation>
     </HexEditor>
     <EventViewer>
@@ -1239,18 +1239,18 @@
         <Height>1057</Height>
       </WindowSize>
       <WindowLocation>
-        <X>902</X>
-        <Y>31</Y>
+        <X>961</X>
+        <Y>398</Y>
       </WindowLocation>
       <ImageScale>3</ImageScale>
-      <ShowTileGrid>false</ShowTileGrid>
+      <ShowTileGrid>true</ShowTileGrid>
       <Source>VideoRam</Source>
       <Format>Bpp4</Format>
       <Layout>Normal</Layout>
       <ColumnCount>16</ColumnCount>
       <Address>0</Address>
       <PageSize>65536</PageSize>
-      <SelectedPalette>0</SelectedPalette>
+      <SelectedPalette>1</SelectedPalette>
       <AutoRefresh>true</AutoRefresh>
       <AutoRefreshSpeed>Low</AutoRefreshSpeed>
       <RefreshScanline>240</RefreshScanline>
@@ -1275,11 +1275,11 @@
         <Height>1057</Height>
       </WindowSize>
       <WindowLocation>
-        <X>937</X>
-        <Y>0</Y>
+        <X>281</X>
+        <Y>328</Y>
       </WindowLocation>
       <ImageScale>2</ImageScale>
-      <SplitterDistance>514</SplitterDistance>
+      <SplitterDistance>1592</SplitterDistance>
       <AutoRefresh>true</AutoRefresh>
       <HideOffscreenSprites>true</HideOffscreenSprites>
       <RefreshScanline>240</RefreshScanline>
@@ -1453,8 +1453,8 @@
     <ServerPassword />
   </Netplay>
   <WindowLocation>
-    <X>936</X>
-    <Y>394</Y>
+    <X>608</X>
+    <Y>395</Y>
   </WindowLocation>
   <WindowSize>
     <Width>528</Width>

@@ -199,7 +199,7 @@ public class Part6ControllersAndNMI extends Ca65Base {
 		final String SPR_PRIOR_2 = "$20";
 		
 		
-		labelWithEnd(SPRITES_LABEL, () -> {
+		smartLabel(SPRITES_LABEL, () -> {
 			// 4 bytes per sprite = x, y, tile #, attribute
 			rawAsm(".byte $80, $80, $00, "+SPR_PRIOR_2);	
 			rawAsm(".byte $80, $90, $20, "+SPR_PRIOR_2);	
@@ -207,12 +207,12 @@ public class Part6ControllersAndNMI extends Ca65Base {
 		});
 		
 		segment("RODATA1", () -> {			
-			labelWithEnd(BG_PALETTE_LABEL, () -> {
+			smartLabel(BG_PALETTE_LABEL, () -> {
 				incbin(GFXPATH+"/default.pal"); // 256 bytes
 				incbin(GFXPATH+"/sprite.pal"); // is 32 bytes, 256+32=288	
 			});
 			
-			labelWithEnd(SPRITES_TILES_LABEL, () -> {
+			smartLabel(SPRITES_TILES_LABEL, () -> {
 				incbin(GFXPATH+"/sprite.chr");
 			});
 		});

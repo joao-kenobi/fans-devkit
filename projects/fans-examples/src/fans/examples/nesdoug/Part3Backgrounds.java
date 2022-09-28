@@ -35,17 +35,17 @@ public class Part3Backgrounds extends Ca65Base {
 	private void importGraphics() {
 		segment("RODATA1");
 		
-		labelWithEnd(BG_PALETTE_LABEL, () -> {
+		smartLabel(BG_PALETTE_LABEL, () -> {
 			//; 32 bytes
 			incbin(GFXPATH+"/moon.pal");
 		});
 		
-		labelWithEnd(TILES_LABEL, () -> {
+		smartLabel(TILES_LABEL, () -> {
 			// 4bpp tileset
 			incbin(GFXPATH+"/moon.chr");
 		});
 		
-		labelWithEnd(TILEMAP_LABEL, () -> {
+		smartLabel(TILEMAP_LABEL, () -> {
 			// $700 bytes
 			incbin(GFXPATH+"/moon.map");
 		});
