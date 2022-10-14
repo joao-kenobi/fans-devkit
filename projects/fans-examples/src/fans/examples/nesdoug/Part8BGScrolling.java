@@ -228,43 +228,55 @@ public class Part8BGScrolling extends Ca65Base {
 	private void readJoypad1() {
 		readJoypad1(new IJoypadReader() {
 			public void onKeyLeft() {
+				_a16();
+				_i16();
+				php();
 				a8Bit();
-				
-//				for (String value : HORIZONTAL_VALUES) {
-//					dec(value);
-//				}
-				
-				a16Bit();
+				lda("map_selected");
+				//lda sets the z flag, if map_selected == 0,
+				//so we don't need to cmp #0
+				bne("@1or2");
+
+				label("@0", () -> {
+					// BG1 (map_selected == 0)
+					inc("bg1_x");
+					bra("@end");						
+				});
+
+				label("@1or2", () -> {						
+					cmp("#1"); 
+					bne("@2");
+				});
+
+				label("@1", () -> {
+					// BG2 (map_selected == 1)
+					inc("bg2_x");
+					bra("@end");
+				});
+
+				label("@2", () -> {
+					// BG3 (map_selected == 2)
+					inc("bg3_x");
+					bra("@end");
+				});
+
+
+				label("@end", () -> {
+					plp();
+					rts();
+				});
 			}
 			
 			public void onKeyRight() {
-				a8Bit();
 				
-//				for (String value : HORIZONTAL_VALUES) {
-//					inc(value);
-//				}
-				
-				a16Bit();
 
 			}
 			public void onKeyUp() {
-				a8Bit();
 				
-//				for (String value : VERTICAL_VALUES) {
-//					dec(value);
-//				}
-				
-				a16Bit();
 			}
 			
 			public void onKeyDown() {
-				a8Bit();
 				
-//				for (String value : VERTICAL_VALUES) {
-//					inc(value);
-//				}
-				
-				a16Bit();
 			}
 			
 		});
