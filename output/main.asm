@@ -4,6 +4,11 @@
 ; === DEFAULT ZEROPAGE SECTION ===
 .segment "ZEROPAGE"
 in_nmi: .res 2
+temp1: .res 2
+pad1: .res 2
+pad1_new: .res 2
+pad2: .res 2
+pad2_new: .res 2
 ; === END DEFAULT ZEROPAGE SECTION ===
 
 ; === DEFAULT BSS SECTION ===
@@ -17,14 +22,52 @@ oam_hi_buffer: .res 32
 oam_buffer_end:
 ; === END DEFAULT BSS SECTION ===
 
+.segment "ZEROPAGE"
+bg1_x: .res 1
+bg1_y: .res 1
+bg2_x: .res 1
+bg2_y: .res 1
+bg3_x: .res 1
+bg3_y: .res 1
+temp2: .res 2
+temp3: .res 2
+temp4: .res 2
+temp5: .res 2
+temp6: .res 2
+sprid: .res 1
+map_selected: .res 1
+spr_c: .res 1
+spr_sz: .res 1
+obj1x: .res 1
+obj1w: .res 1
+obj1y: .res 1
+obj1h: .res 1
+obj2x: .res 1
+obj2w: .res 1
+obj2y: .res 1
+obj2h: .res 1
+collision: .res 1
+spr_a: .res 1
+spr_x: .res 1
+spr_y: .res 1
+spr_x2: .res 2
+spr_h: .res 2
+.include "../framework/asm/includes/ca65/library.asm"
 .include "../framework/asm/includes/ca65/init.asm"
+.include "../framework/asm/includes/ca65/header.asm"
 .segment "CODE"
 
 main:
-.a8
-.i16
+sep #$20 ; A 8 BIT MODE
+rep #$10 ; X,Y 16 BIT MODE
 phk
 plb
+SPR_POS_X = 0
+SPR_NEG_X = 1
+SPR_SIZE_SM = 0
+SPR_SIZE_LG = 2
+SPR_PRIOR_2 = $20
+SPR_PAL_0  = $00
 phb
 .if .asize = 8
 rep #$30 ; A,X,Y 16 BIT MODE
@@ -35,43 +78,18 @@ ldx #.loword(bg_palette)
 ldy #.loword(palette_buffer)
 .byte $54, ^palette_buffer, ^bg_palette
 plb
+sep #$20 ; A 8 BIT MODE
+stz $2121 ;CGADD
 
 ; === DMA START  === 
 stz $4300 ;DMAP0
 lda #$22
 sta $4301 ;BBAD0
-ldx #.loword(palette_buffer)
+ldx #.loword(bg_palette)
 stx $4302 ;A1T0L
-lda #^palette_buffer
+lda #^bg_palette
 sta $4304 ;A1B0
-ldx #(palette_buffer_end-palette_buffer)
-stx $4305 ;DAS0L
-lda #%1
-sta $420B ;MDMAEN
-; === DMA END  === 
-
-phb
-.if .asize = 8
-.elseif .isize = 8
-.endif
-lda #(sprites_end-sprites)
-ldx #.loword(sprites)
-ldy #.loword(oam_lo_buffer)
-.byte $54, ^oam_lo_buffer, ^sprites
-plb
-sep #$20 ; A 8 BIT MODE
-stz oam_hi_buffer
-stz $2102 ;OAMADDL
-
-; === DMA START  === 
-stz $4300 ;DMAP0
-lda #$04
-sta $4301 ;BBAD0
-ldx #.loword(oam_lo_buffer)
-stx $4302 ;A1T0L
-lda #^oam_lo_buffer
-sta $4304 ;A1B0
-ldx #(oam_buffer_end - oam_lo_buffer)
+ldx #(bg_palette_end-bg_palette)
 stx $4305 ;DAS0L
 lda #%1
 sta $420B ;MDMAEN
@@ -96,18 +114,218 @@ lda #%1
 sta $420B ;MDMAEN
 ; === DMA END  === 
 
-stz $2101 ;OBSEL
+ldx #$3000
+stx $2116 ;VMADDL
+
+; === DMA START  === 
 lda #$01
+sta $4300 ;DMAP0
+lda #$18
+sta $4301 ;BBAD0
+ldx #.loword(tiles_2)
+stx $4302 ;A1T0L
+lda #^tiles_2
+sta $4304 ;A1B0
+ldx #(tiles_2_end - tiles_2)
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
+; === DMA END  === 
+
+ldx #$4000
+stx $2116 ;VMADDL
+
+; === DMA START  === 
+lda #$01
+sta $4300 ;DMAP0
+lda #$18
+sta $4301 ;BBAD0
+ldx #.loword(sprite_tiles)
+stx $4302 ;A1T0L
+lda #^sprite_tiles
+sta $4304 ;A1B0
+ldx #(sprite_tiles_end - sprite_tiles)
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
+; === DMA END  === 
+
+ldx #$6000
+stx $2116 ;VMADDL
+
+; === DMA START  === 
+lda #$01
+sta $4300 ;DMAP0
+lda #$18
+sta $4301 ;BBAD0
+ldx #.loword(tilemap)
+stx $4302 ;A1T0L
+lda #^tilemap
+sta $4304 ;A1B0
+ldx #(tilemap_end - tilemap)
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
+; === DMA END  === 
+
+ldx #$6800
+stx $2116 ;VMADDL
+
+; === DMA START  === 
+lda #$01
+sta $4300 ;DMAP0
+lda #$18
+sta $4301 ;BBAD0
+ldx #.loword(tilemap_2)
+stx $4302 ;A1T0L
+lda #^tilemap_2
+sta $4304 ;A1B0
+ldx #(tilemap_2_end - tilemap_2)
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
+; === DMA END  === 
+
+ldx #$7000
+stx $2116 ;VMADDL
+
+; === DMA START  === 
+lda #$01
+sta $4300 ;DMAP0
+lda #$18
+sta $4301 ;BBAD0
+ldx #.loword(tilemap_3)
+stx $4302 ;A1T0L
+lda #^tilemap_3
+sta $4304 ;A1B0
+ldx #(tilemap_3_end - tilemap_3)
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
+; === DMA END  === 
+
+lda #$1|8
 sta $2105 ;BGMODE
-lda #$10
+stz $210b ;BG12NBA
+lda #$03
+sta $210c ;BG34NBA
+lda #$60
+sta $2107 ;BG1SC
+lda #$68
+sta $2108 ;BG2SC
+lda #$70
+sta $2109 ;BG3SC
+lda #2
+sta $2101 ;OBSEL
+lda #$1f
 sta $212C ;TM
+lda #$80|01
+sta $4200 ;NMITIMEN
 lda #$0f
 sta $2100 ;INIDISP
 
-Infinite_Loop:
+infinite_loop:
 rep #$10 ; X,Y 16 BIT MODE
 jsr wait_nmi
-jmp Infinite_Loop
+
+; === DMA START  === 
+stz $4300 ;DMAP0
+lda #$04
+sta $4301 ;BBAD0
+ldx #.loword(oam_lo_buffer)
+stx $4302 ;A1T0L
+lda #^oam_lo_buffer
+sta $4304 ;A1B0
+ldx #(oam_buffer_end - oam_lo_buffer)
+stx $4305 ;DAS0L
+lda #%1
+sta $420B ;MDMAEN
+; === DMA END  === 
+
+jsr set_scroll
+jsr pad_poll
+jsr clear_oam
+rep #$30 ; A,X,Y 16 BIT MODE
+lda pad1
+and #$0200
+beq @not_left
+
+@left:
+sep #$20 ; A 8 BIT MODE
+rep #$20  ; A 16 BIT MODE
+
+@not_left:
+lda pad1
+and #$0100
+beq @not_right
+
+@right:
+sep #$20 ; A 8 BIT MODE
+rep #$20  ; A 16 BIT MODE
+
+@not_right:
+lda pad1
+and #$0800
+beq @not_up
+
+@up:
+sep #$20 ; A 8 BIT MODE
+rep #$20  ; A 16 BIT MODE
+
+@not_up:
+lda pad1
+and #$0400
+beq @not_down
+
+@down:
+sep #$20 ; A 8 BIT MODE
+rep #$20  ; A 16 BIT MODE
+
+@not_down:
+sep #$20 ; A 8 BIT MODE
+jmp infinite_loop
+
+draw_sprites:
+php
+stz sprid
+lda #10
+sta spr_x
+sta spr_y
+lda map_selected
+asl a
+sta spr_c
+lda #SPR_PAL_0|SPR_PRIOR_2
+sta spr_a
+lda #SPR_SIZE_LG
+sta spr_sz
+jsr OAM_Spr
+plp
+rts
+
+set_scroll:
+.a8
+.i16
+php
+lda bg1_x
+sta $210D ;BG1HOFS
+stz $210D ;BG1HOFS
+lda bg1_y
+sta $210E ;BG1VOFS
+stz $210E ;BG1VOFS
+lda bg2_x
+sta $210F ;BG2HOFS
+stz $210F ;BG2HOFS
+lda bg2_y
+sta $2110 ;BG2VOFS
+stz $2110 ;BG2VOFS
+lda bg3_x
+sta $2111 ;BG3HOFS
+stz $2111 ;BG3HOFS
+lda bg3_y
+sta $2111 ;BG3HOFS
+stz $2111 ;BG3HOFS
+plp
+rts
 
 wait_nmi:
 .a8
@@ -119,138 +337,71 @@ wai
 cmp in_nmi
 beq @check_again
 rts
-sprite_priority = $20
 
-sprites:
-.byte $A, $73, $0, sprite_priority
-.byte $12, $73, $1, sprite_priority
-.byte $1A, $73, $2, sprite_priority
-.byte $22, $73, $3, sprite_priority
-.byte $2A, $73, $4, sprite_priority
-.byte $32, $73, $5, sprite_priority
-.byte $3A, $73, $6, sprite_priority
-.byte $42, $73, $7, sprite_priority
-.byte $4A, $73, $8, sprite_priority
-.byte $A, $7B, $10, sprite_priority
-.byte $12, $7B, $11, sprite_priority
-.byte $1A, $7B, $12, sprite_priority
-.byte $22, $7B, $13, sprite_priority
-.byte $2A, $7B, $14, sprite_priority
-.byte $32, $7B, $15, sprite_priority
-.byte $3A, $7B, $16, sprite_priority
-.byte $42, $7B, $17, sprite_priority
-.byte $4A, $7B, $18, sprite_priority
-.byte $A, $83, $20, sprite_priority
-.byte $12, $83, $21, sprite_priority
-.byte $1A, $83, $22, sprite_priority
-.byte $22, $83, $23, sprite_priority
-.byte $2A, $83, $24, sprite_priority
-.byte $32, $83, $25, sprite_priority
-.byte $3A, $83, $26, sprite_priority
-.byte $42, $83, $27, sprite_priority
-.byte $4A, $83, $28, sprite_priority
-.byte $A, $8B, $30, sprite_priority
-.byte $12, $8B, $31, sprite_priority
-.byte $1A, $8B, $32, sprite_priority
-.byte $22, $8B, $33, sprite_priority
-.byte $2A, $8B, $34, sprite_priority
-.byte $32, $8B, $35, sprite_priority
-.byte $3A, $8B, $36, sprite_priority
-.byte $42, $8B, $37, sprite_priority
-.byte $4A, $8B, $38, sprite_priority
-.byte $A, $93, $40, sprite_priority
-.byte $12, $93, $41, sprite_priority
-.byte $1A, $93, $42, sprite_priority
-.byte $22, $93, $43, sprite_priority
-.byte $2A, $93, $44, sprite_priority
-.byte $32, $93, $45, sprite_priority
-.byte $3A, $93, $46, sprite_priority
-.byte $42, $93, $47, sprite_priority
-.byte $4A, $93, $48, sprite_priority
-.byte $A, $9B, $50, sprite_priority
-.byte $12, $9B, $51, sprite_priority
-.byte $1A, $9B, $52, sprite_priority
-.byte $22, $9B, $53, sprite_priority
-.byte $2A, $9B, $54, sprite_priority
-.byte $32, $9B, $55, sprite_priority
-.byte $3A, $9B, $56, sprite_priority
-.byte $42, $9B, $57, sprite_priority
-.byte $4A, $9B, $58, sprite_priority
-.byte $A, $A3, $60, sprite_priority
-.byte $12, $A3, $61, sprite_priority
-.byte $1A, $A3, $62, sprite_priority
-.byte $22, $A3, $63, sprite_priority
-.byte $2A, $A3, $64, sprite_priority
-.byte $32, $A3, $65, sprite_priority
-.byte $3A, $A3, $66, sprite_priority
-.byte $42, $A3, $67, sprite_priority
-.byte $4A, $A3, $68, sprite_priority
-.byte $A, $AB, $70, sprite_priority
-.byte $12, $AB, $71, sprite_priority
-.byte $1A, $AB, $72, sprite_priority
-.byte $22, $AB, $73, sprite_priority
-.byte $2A, $AB, $74, sprite_priority
-.byte $32, $AB, $75, sprite_priority
-.byte $3A, $AB, $76, sprite_priority
-.byte $42, $AB, $77, sprite_priority
-.byte $4A, $AB, $78, sprite_priority
-.byte $A, $B3, $80, sprite_priority
-.byte $12, $B3, $81, sprite_priority
-.byte $1A, $B3, $82, sprite_priority
-.byte $22, $B3, $83, sprite_priority
-.byte $2A, $B3, $84, sprite_priority
-.byte $32, $B3, $85, sprite_priority
-.byte $3A, $B3, $86, sprite_priority
-.byte $42, $B3, $87, sprite_priority
-.byte $4A, $B3, $88, sprite_priority
-.byte $A, $BB, $90, sprite_priority
-.byte $12, $BB, $91, sprite_priority
-.byte $1A, $BB, $92, sprite_priority
-.byte $22, $BB, $93, sprite_priority
-.byte $2A, $BB, $94, sprite_priority
-.byte $32, $BB, $95, sprite_priority
-.byte $3A, $BB, $96, sprite_priority
-.byte $42, $BB, $97, sprite_priority
-.byte $4A, $BB, $98, sprite_priority
-.byte $A, $C3, $A0, sprite_priority
-.byte $12, $C3, $A1, sprite_priority
-.byte $1A, $C3, $A2, sprite_priority
-.byte $22, $C3, $A3, sprite_priority
-.byte $2A, $C3, $A4, sprite_priority
-.byte $32, $C3, $A5, sprite_priority
-.byte $3A, $C3, $A6, sprite_priority
-.byte $42, $C3, $A7, sprite_priority
-.byte $4A, $C3, $A8, sprite_priority
-.byte $A, $CB, $B0, sprite_priority
-.byte $12, $CB, $B1, sprite_priority
-.byte $1A, $CB, $B2, sprite_priority
-.byte $22, $CB, $B3, sprite_priority
-.byte $2A, $CB, $B4, sprite_priority
-.byte $32, $CB, $B5, sprite_priority
-.byte $3A, $CB, $B6, sprite_priority
-.byte $42, $CB, $B7, sprite_priority
-.byte $4A, $CB, $B8, sprite_priority
-.byte $A, $D3, $C0, sprite_priority
-.byte $12, $D3, $C1, sprite_priority
-.byte $1A, $D3, $C2, sprite_priority
-.byte $22, $D3, $C3, sprite_priority
-.byte $2A, $D3, $C4, sprite_priority
-.byte $32, $D3, $C5, sprite_priority
-.byte $3A, $D3, $C6, sprite_priority
-.byte $42, $D3, $C7, sprite_priority
-.byte $4A, $D3, $C8, sprite_priority
-sprites_end:
+pad_poll:
+.a8
+.i16
+php
 
+@wait:
+lda $4212
+lsr a
+bcs @wait
+rep #$20  ; A 16 BIT MODE
+lda pad1
+sta temp1
+lda $4218 ;JOY1L
+sta pad1
+eor temp1
+and pad1
+sta pad1_new
+lda pad2
+sta temp1
+lda $421A ;JOY2L
+sta pad2
+eor temp1
+and pad2
+sta pad2_new
+plp
+rts
 .segment "RODATA1"
 
 bg_palette:
-.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/teste/sprite/iori/default.palette"
-.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/teste/sprite/iori/iori.palette"
+.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part8/backgrounds/allBG.pal"
 bg_palette_end:
 
 
 tiles:
-.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/teste/sprite/iori/iori.tiles"
+.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part8/backgrounds/moon.chr"
 tiles_end:
 
-.include "../framework/asm/includes/ca65/header.asm"
+
+tilemap:
+.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part8/backgrounds/moon.map"
+tilemap_end:
+
+
+tiles_2:
+.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part8/backgrounds/spacebar.chr"
+tiles_2_end:
+
+
+tilemap_3:
+.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part8/backgrounds/spacebar.map"
+tilemap_3_end:
+
+
+tilemap_2:
+.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part8/backgrounds/bluebar.map"
+tilemap_2_end:
+
+
+sprite_palette:
+.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part8/sprites/Sprites.pal"
+sprite_palette_end:
+
+
+sprite_tiles:
+.incbin "C:/ambiente_desenvolvimento/test/fans/fans-devkit/projects/fans-examples/home/includes/graphics/nesdoug/part8/sprites/Numbers.chr"
+sprite_tiles_end:
+
